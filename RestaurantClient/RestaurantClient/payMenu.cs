@@ -35,7 +35,8 @@ namespace RestaurantClient
         {
             
             e.Handled = !char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar) && !(e.KeyChar == ',');
-            
+            rtbTips.Text = int.Parse(rtbcost.Text.Replace(",", "."));
+            //Todo: TIPs berechnen
         }
     }
 }
