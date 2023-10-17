@@ -44,6 +44,7 @@
             this.btnback = new System.Windows.Forms.Button();
             this.lbltable = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.db1 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -126,6 +127,7 @@
             this.rtbmoneygive.Text = "0000,00";
             this.rtbmoneygive.TextChanged += new System.EventHandler(this.rtbmoneygive_TextChanged);
             this.rtbmoneygive.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.rtbmoneygive_KeyPress);
+            this.rtbmoneygive.KeyUp += new System.Windows.Forms.KeyEventHandler(this.rtbmoneygive_KeyUp);
             // 
             // label4
             // 
@@ -197,11 +199,21 @@
             this.pictureBox1.TabIndex = 15;
             this.pictureBox1.TabStop = false;
             // 
+            // db1
+            // 
+            this.db1.AutoSize = true;
+            this.db1.Location = new System.Drawing.Point(285, 419);
+            this.db1.Name = "db1";
+            this.db1.Size = new System.Drawing.Size(66, 13);
+            this.db1.TabIndex = 16;
+            this.db1.Text = "Kunde zahlt:";
+            // 
             // payMenu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(609, 556);
+            this.Controls.Add(this.db1);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.lbltable);
             this.Controls.Add(this.btnback);
@@ -243,5 +255,6 @@
         private System.Windows.Forms.Button btnback;
         private System.Windows.Forms.Label lbltable;
         private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.Label db1;
     }
 }

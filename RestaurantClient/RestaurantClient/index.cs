@@ -42,13 +42,18 @@ namespace RestaurantClient
 
         private void tischwechselnToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Interaction.InputBox("Zu welchem Tisch wird gewechselt?", "Tischwechsel", "");
+            //int changetable = Convert.ToInt32(Interaction.InputBox("Zu welchem Tisch wird gewechselt?", "Tischwechsel", ""));
+            //this.Controls["btnTisch" + intselectedTable].BackColor = Color.DarkSeaGreen;
+            //this.Controls["btnTisch" + changetable].BackColor = Color.Khaki;
+            //TODOo Farbwechsel
+
+
         }
 
         private void ButtonClick(object sender, EventArgs e)
         {
             
-            MessageBox.Show(((Button)sender).Text.Remove(0,6));
+            
             intselectedTable = Int32.Parse(((Button)sender).Text.Remove(0, 6));
         }
 
