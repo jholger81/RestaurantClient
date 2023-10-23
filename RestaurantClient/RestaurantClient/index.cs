@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml.Linq;
 using Microsoft.VisualBasic;
 
 namespace RestaurantClient
@@ -42,9 +43,12 @@ namespace RestaurantClient
 
         private void tischwechselnToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            //int changetable = Convert.ToInt32(Interaction.InputBox("Zu welchem Tisch wird gewechselt?", "Tischwechsel", ""));
-            //this.Controls["btnTisch" + intselectedTable].BackColor = Color.DarkSeaGreen;
-            //this.Controls["btnTisch" + changetable].BackColor = Color.Khaki;
+            int dummy = intselectedTable;
+            Button ctn = (Button)this.Controls.Find("btnTisch" + Convert.ToString(dummy), true)[0];
+            int changetable = Convert.ToInt32(Interaction.InputBox("Zu welchem Tisch wird gewechselt?", "Tischwechsel", ""));
+            ctn.BackColor = Color.DarkSeaGreen;
+            ctn = (Button)this.Controls.Find("btnTisch" + Convert.ToString(changetable), true)[0];
+            ctn.BackColor = Color.Khaki;
             //TODOo Farbwechsel
 
 
