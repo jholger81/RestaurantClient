@@ -4,17 +4,21 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Media;
+using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Linq;
 using Microsoft.VisualBasic;
+using RestaurantClient.Properties;
 
 namespace RestaurantClient
 {
     public partial class index : Form
     {
         int intselectedTable = 0;
+
         public index()
         {
             InitializeComponent();
@@ -61,6 +65,18 @@ namespace RestaurantClient
             intselectedTable = Int32.Parse(((Button)sender).Text.Remove(0, 6));
         }
 
+        private void btndummy_Click(object sender, EventArgs e)
+        {
+            Restaurant.Models.Tisch tisch = new Restaurant.Models.Tisch();
 
+            tisch = Restaurant.Database.DBAccess.GetTisch(2);
+            MessageBox.Show(Convert.ToString(tisch.ID_Tisch));
+        }
+
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+            SoundPlayer simpleSound = new SoundPlayer(@"H:\LF10\RestaurantClient\RestaurantClient\RestaurantClient\Resources\palim.wav");
+            simpleSound.Play();
+        }
     }
 }

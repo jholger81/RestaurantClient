@@ -30,7 +30,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(addOrder));
             this.listBox1 = new System.Windows.Forms.ListBox();
-            this.btngetraenke = new System.Windows.Forms.Button();
+            this.btnGetraenke = new System.Windows.Forms.Button();
             this.btnEssen = new System.Windows.Forms.Button();
             this.rtbextras = new System.Windows.Forms.RichTextBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -42,6 +42,7 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.btnback = new System.Windows.Forms.Button();
             this.lbltable = new System.Windows.Forms.Label();
+            this.btnDessert = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.nudcount)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -54,20 +55,20 @@
             this.listBox1.Size = new System.Drawing.Size(586, 225);
             this.listBox1.TabIndex = 0;
             // 
-            // btngetraenke
+            // btnGetraenke
             // 
-            this.btngetraenke.Location = new System.Drawing.Point(11, 85);
-            this.btngetraenke.Name = "btngetraenke";
-            this.btngetraenke.Size = new System.Drawing.Size(237, 54);
-            this.btngetraenke.TabIndex = 1;
-            this.btngetraenke.Text = "Getränke";
-            this.btngetraenke.UseVisualStyleBackColor = true;
+            this.btnGetraenke.Location = new System.Drawing.Point(11, 85);
+            this.btnGetraenke.Name = "btnGetraenke";
+            this.btnGetraenke.Size = new System.Drawing.Size(145, 54);
+            this.btnGetraenke.TabIndex = 1;
+            this.btnGetraenke.Text = "Getränke";
+            this.btnGetraenke.UseVisualStyleBackColor = true;
             // 
             // btnEssen
             // 
-            this.btnEssen.Location = new System.Drawing.Point(254, 85);
+            this.btnEssen.Location = new System.Drawing.Point(179, 85);
             this.btnEssen.Name = "btnEssen";
-            this.btnEssen.Size = new System.Drawing.Size(238, 54);
+            this.btnEssen.Size = new System.Drawing.Size(145, 54);
             this.btnEssen.TabIndex = 2;
             this.btnEssen.Text = "Essen";
             this.btnEssen.UseVisualStyleBackColor = true;
@@ -165,11 +166,21 @@
             this.lbltable.TabIndex = 15;
             this.lbltable.Text = "Ausgewählter Tisch: 00";
             // 
+            // btnDessert
+            // 
+            this.btnDessert.Location = new System.Drawing.Point(347, 85);
+            this.btnDessert.Name = "btnDessert";
+            this.btnDessert.Size = new System.Drawing.Size(145, 54);
+            this.btnDessert.TabIndex = 16;
+            this.btnDessert.Text = "Desserts";
+            this.btnDessert.UseVisualStyleBackColor = true;
+            // 
             // addOrder
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(609, 620);
+            this.Controls.Add(this.btnDessert);
             this.Controls.Add(this.lbltable);
             this.Controls.Add(this.btnback);
             this.Controls.Add(this.pictureBox1);
@@ -181,7 +192,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.rtbextras);
             this.Controls.Add(this.btnEssen);
-            this.Controls.Add(this.btngetraenke);
+            this.Controls.Add(this.btnGetraenke);
             this.Controls.Add(this.listBox1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "addOrder";
@@ -197,7 +208,7 @@
         #endregion
 
         private System.Windows.Forms.ListBox listBox1;
-        private System.Windows.Forms.Button btngetraenke;
+        private System.Windows.Forms.Button btnGetraenke;
         private System.Windows.Forms.Button btnEssen;
         private System.Windows.Forms.RichTextBox rtbextras;
         private System.Windows.Forms.Label label1;
@@ -209,5 +220,6 @@
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Button btnback;
         private System.Windows.Forms.Label lbltable;
+        private System.Windows.Forms.Button btnDessert;
     }
 }
