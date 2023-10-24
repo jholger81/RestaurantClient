@@ -1,51 +1,51 @@
 -- Gerichte
-INSERT INTO Artikel (Name, Preis, Kategorie) VALUES ('Schnitzel mit Pommes', 1099, 'Speisen');
-INSERT INTO Artikel (Name, Preis, Kategorie) VALUES ('Rinderfilet mit Gemüse', 1499, 'Speisen');
-INSERT INTO Artikel (Name, Preis, Kategorie) VALUES ('Spaghetti Carbonara', 899, 'Speisen');
-INSERT INTO Artikel (Name, Preis, Kategorie) VALUES ('Margherita Pizza', 799, 'Speisen');
-INSERT INTO Artikel (Name, Preis, Kategorie) VALUES ('Gemüsesuppe', 499, 'Speisen');
-INSERT INTO Artikel (Name, Preis, Kategorie) VALUES ('Lachsfilet mit Reis', 1299, 'Speisen');
-INSERT INTO Artikel (Name, Preis, Kategorie) VALUES ('Penne Alfredo', 999, 'Speisen');
-INSERT INTO Artikel (Name, Preis, Kategorie) VALUES ('Cesar Salat', 799, 'Speisen');
-INSERT INTO Artikel (Name, Preis, Kategorie) VALUES ('Hühnchenbrust mit Kartoffeln', 1199, 'Speisen');
-INSERT INTO Artikel (Name, Preis, Kategorie) VALUES ('Pommes Frites', 399, 'Speisen');
+INSERT INTO Artikel (Name, Preis, Kategorie) VALUES ('Schnitzel mit Pommes', 1099, 'Speise');
+INSERT INTO Artikel (Name, Preis, Kategorie) VALUES ('Rinderfilet mit Gemüse', 1499, 'Speise');
+INSERT INTO Artikel (Name, Preis, Kategorie) VALUES ('Spaghetti Carbonara', 899, 'Speise');
+INSERT INTO Artikel (Name, Preis, Kategorie) VALUES ('Margherita Pizza', 799, 'Speise');
+INSERT INTO Artikel (Name, Preis, Kategorie) VALUES ('Gemüsesuppe', 499, 'Speise');
+INSERT INTO Artikel (Name, Preis, Kategorie) VALUES ('Lachsfilet mit Reis', 1299, 'Speise');
+INSERT INTO Artikel (Name, Preis, Kategorie) VALUES ('Penne Alfredo', 999, 'Speise');
+INSERT INTO Artikel (Name, Preis, Kategorie) VALUES ('Cesar Salat', 799, 'Speise');
+INSERT INTO Artikel (Name, Preis, Kategorie) VALUES ('Hühnchenbrust mit Kartoffeln', 1199, 'Speise');
+INSERT INTO Artikel (Name, Preis, Kategorie) VALUES ('Pommes Frites', 399, 'Speise');
 
--- Getränke
-INSERT INTO Artikel (Name, Preis, Kategorie) VALUES ('Cola', 199, 'Getränke');
-INSERT INTO Artikel (Name, Preis, Kategorie) VALUES ('Wasser', 149, 'Getränke');
-INSERT INTO Artikel (Name, Preis, Kategorie) VALUES ('Bier (0,5 l)', 299, 'Getränke');
-INSERT INTO Artikel (Name, Preis, Kategorie) VALUES ('Eistee', 199, 'Getränke');
-INSERT INTO Artikel (Name, Preis, Kategorie) VALUES ('Kaffee', 249, 'Getränke');
-INSERT INTO Artikel (Name, Preis, Kategorie) VALUES ('Orangensaft', 249, 'Getränke');
-INSERT INTO Artikel (Name, Preis, Kategorie) VALUES ('Apfelsaft', 249, 'Getränke');
-INSERT INTO Artikel (Name, Preis, Kategorie) VALUES ('Limonade', 199, 'Getränke');
-INSERT INTO Artikel (Name, Preis, Kategorie) VALUES ('Weißwein (0,2 l)', 499, 'Getränke');
-INSERT INTO Artikel (Name, Preis, Kategorie) VALUES ('Rotwein (0,2 l)', 499, 'Getränke');
+-- Getraenk
+INSERT INTO Artikel (Name, Preis, Kategorie) VALUES ('Cola', 199, 'Getraenk');
+INSERT INTO Artikel (Name, Preis, Kategorie) VALUES ('Wasser', 149, 'Getraenk');
+INSERT INTO Artikel (Name, Preis, Kategorie) VALUES ('Bier (0,5 l)', 299, 'Getraenk');
+INSERT INTO Artikel (Name, Preis, Kategorie) VALUES ('Eistee', 199, 'Getraenk');
+INSERT INTO Artikel (Name, Preis, Kategorie) VALUES ('Kaffee', 249, 'Getraenk');
+INSERT INTO Artikel (Name, Preis, Kategorie) VALUES ('Orangensaft', 249, 'Getraenk');
+INSERT INTO Artikel (Name, Preis, Kategorie) VALUES ('Apfelsaft', 249, 'Getraenk');
+INSERT INTO Artikel (Name, Preis, Kategorie) VALUES ('Limonade', 199, 'Getraenk');
+INSERT INTO Artikel (Name, Preis, Kategorie) VALUES ('Weißwein (0,2 l)', 499, 'Getraenk');
+INSERT INTO Artikel (Name, Preis, Kategorie) VALUES ('Rotwein (0,2 l)', 499, 'Getraenk');
 
 -- Weitere Gerichte
-INSERT INTO Artikel (Name, Preis, Kategorie) VALUES ('Bratwurst mit Sauerkraut', 799, 'Speisen');
-INSERT INTO Artikel (Name, Preis, Kategorie) VALUES ('Gemischter Salat', 599, 'Speisen');
-INSERT INTO Artikel (Name, Preis, Kategorie) VALUES ('Hühnchenschnitzel mit Kartoffelsalat', 1099, 'Speisen');
+INSERT INTO Artikel (Name, Preis, Kategorie) VALUES ('Bratwurst mit Sauerkraut', 799, 'Speise');
+INSERT INTO Artikel (Name, Preis, Kategorie) VALUES ('Gemischter Salat', 599, 'Speise');
+INSERT INTO Artikel (Name, Preis, Kategorie) VALUES ('Hühnchenschnitzel mit Kartoffelsalat', 1099, 'Speise');
 
--- Weitere Getränke
-INSERT INTO Artikel (Name, Preis, Kategorie) VALUES ('Tee', 199, 'Getränke');
-INSERT INTO Artikel (Name, Preis, Kategorie) VALUES ('Mineralwasser', 149, 'Getränke');
-INSERT INTO Artikel (Name, Preis, Kategorie) VALUES ('Mojito', 499, 'Getränke');
-INSERT INTO Artikel (Name, Preis, Kategorie) VALUES ('Cappuccino', 299, 'Getränke');
+-- Weitere Getraenk
+INSERT INTO Artikel (Name, Preis, Kategorie) VALUES ('Tee', 199, 'Getraenk');
+INSERT INTO Artikel (Name, Preis, Kategorie) VALUES ('Mineralwasser', 149, 'Getraenk');
+INSERT INTO Artikel (Name, Preis, Kategorie) VALUES ('Mojito', 499, 'Getraenk');
+INSERT INTO Artikel (Name, Preis, Kategorie) VALUES ('Cappuccino', 299, 'Getraenk');
 
--- Desserts
-INSERT INTO Artikel (Name, Preis, Kategorie) VALUES ('Schokoladenkuchen', 599, 'Desserts');
-INSERT INTO Artikel (Name, Preis, Kategorie) VALUES ('Tiramisu', 699, 'Desserts');
-INSERT INTO Artikel (Name, Preis, Kategorie) VALUES ('Apfelstrudel', 599, 'Desserts');
-INSERT INTO Artikel (Name, Preis, Kategorie) VALUES ('Eisbecher', 499, 'Desserts');
-INSERT INTO Artikel (Name, Preis, Kategorie) VALUES ('Panna Cotta', 699, 'Desserts');
-INSERT INTO Artikel (Name, Preis, Kategorie) VALUES ('Käsekuchen', 599, 'Desserts');
-INSERT INTO Artikel (Name, Preis, Kategorie) VALUES ('Obstsalat', 499, 'Desserts');
-INSERT INTO Artikel (Name, Preis, Kategorie) VALUES ('Erdbeertorte', 599, 'Desserts');
-INSERT INTO Artikel (Name, Preis, Kategorie) VALUES ('Schokoladeneis', 499, 'Desserts');
-INSERT INTO Artikel (Name, Preis, Kategorie) VALUES ('Vanilleeis', 499, 'Desserts');
-INSERT INTO Artikel (Name, Preis, Kategorie) VALUES ('Zitronensorbet', 499, 'Desserts');
-INSERT INTO Artikel (Name, Preis, Kategorie) VALUES ('Mousse au Chocolat', 699, 'Desserts');
-INSERT INTO Artikel (Name, Preis, Kategorie) VALUES ('Kirschstrudel', 599, 'Desserts');
-INSERT INTO Artikel (Name, Preis, Kategorie) VALUES ('Creme Brulee', 699, 'Desserts');
-INSERT INTO Artikel (Name, Preis, Kategorie) VALUES ('Bananasplit', 599, 'Desserts');
+-- Dessert
+INSERT INTO Artikel (Name, Preis, Kategorie) VALUES ('Schokoladenkuchen', 599, 'Dessert');
+INSERT INTO Artikel (Name, Preis, Kategorie) VALUES ('Tiramisu', 699, 'Dessert');
+INSERT INTO Artikel (Name, Preis, Kategorie) VALUES ('Apfelstrudel', 599, 'Dessert');
+INSERT INTO Artikel (Name, Preis, Kategorie) VALUES ('Eisbecher', 499, 'Dessert');
+INSERT INTO Artikel (Name, Preis, Kategorie) VALUES ('Panna Cotta', 699, 'Dessert');
+INSERT INTO Artikel (Name, Preis, Kategorie) VALUES ('Käsekuchen', 599, 'Dessert');
+INSERT INTO Artikel (Name, Preis, Kategorie) VALUES ('Obstsalat', 499, 'Dessert');
+INSERT INTO Artikel (Name, Preis, Kategorie) VALUES ('Erdbeertorte', 599, 'Dessert');
+INSERT INTO Artikel (Name, Preis, Kategorie) VALUES ('Schokoladeneis', 499, 'Dessert');
+INSERT INTO Artikel (Name, Preis, Kategorie) VALUES ('Vanilleeis', 499, 'Dessert');
+INSERT INTO Artikel (Name, Preis, Kategorie) VALUES ('Zitronensorbet', 499, 'Dessert');
+INSERT INTO Artikel (Name, Preis, Kategorie) VALUES ('Mousse au Chocolat', 699, 'Dessert');
+INSERT INTO Artikel (Name, Preis, Kategorie) VALUES ('Kirschstrudel', 599, 'Dessert');
+INSERT INTO Artikel (Name, Preis, Kategorie) VALUES ('Creme Brulee', 699, 'Dessert');
+INSERT INTO Artikel (Name, Preis, Kategorie) VALUES ('Bananasplit', 599, 'Dessert');
