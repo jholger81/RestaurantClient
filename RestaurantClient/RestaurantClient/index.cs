@@ -32,18 +32,27 @@ namespace RestaurantClient
 
         private void btnadd_Click(object sender, EventArgs e)
         {
-            Form addOrder = new addOrder(intselectedTable);
 
-            // Show the settings form
-            addOrder.Show();
+            if (intselectedTable != 0)
+            {
+                Form addOrder = new addOrder(intselectedTable);
+
+                // Show the settings form
+                addOrder.Show();
+            }
+
         }
 
         private void btnpay_Click(object sender, EventArgs e)
         {
-            Form payMenu = new payMenu(intselectedTable);
+            if (intselectedTable != 0)
+            {
+                Form payMenu = new payMenu(intselectedTable);
 
-            // Show the settings form
-            payMenu.Show();
+                // Show the settings form
+                payMenu.Show();
+            }
+            
         }
 
         private void tischwechselnToolStripMenuItem_Click(object sender, EventArgs e)
@@ -87,9 +96,10 @@ namespace RestaurantClient
             //Console.WriteLine("");
 
             ApiClient apiClient = new ApiClient();
-            string apiUrl = "https://localhost:1337/tables";
+            //string apiUrl = "https://localhost:1337/tables";
+            string apiUrl = "https://localhost:1337/orders/7";
             //string result = ...
-            List<Tisch> tische = await apiClient.GetDataFromApiGeneric<List<Tisch>>(apiUrl);
+            List<Artikel> tische = await apiClient.GetDataFromApiGeneric<List<Artikel>>(apiUrl);
             Console.WriteLine("");
         }
 
