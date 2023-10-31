@@ -86,14 +86,19 @@ namespace RestaurantClient
             //string apiUrl = "https://localhost:1337/tables";
             string apiUrl = "https://localhost:1337/orders/" + intselectedTable.ToString();
             //string result = ...
-            List<Bestellposition> positionen = await apiClient.GetDataFromApiGeneric<List<Bestellposition>>(apiUrl);
+            Bestellung bestellung = await apiClient.GetDataFromApiGeneric<Bestellung>(apiUrl);
             Console.WriteLine("");
-            foreach (var pos in positionen)
+            if (bestellung != null)
             {
-                ltbshoworderd.Items.Add(pos.Artikel.Name);
+                foreach (var pos in bestellung.Positionen)
+                {
 
+                    ltbshoworderd.Items.Add(pos.Artikel.Name);
+
+                }
             }
         }
+            
 
         private async void btndummy_Click(object sender, EventArgs e)
         {

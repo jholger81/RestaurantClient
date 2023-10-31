@@ -121,6 +121,7 @@
             this.btnsavenext.TabIndex = 8;
             this.btnsavenext.Text = "Speichern\r\nund\r\nWeiter";
             this.btnsavenext.UseVisualStyleBackColor = false;
+            this.btnsavenext.Click += new System.EventHandler(this.btnsavenext_Click);
             // 
             // label2
             // 
