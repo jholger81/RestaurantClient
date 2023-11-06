@@ -151,6 +151,12 @@
       <DependentUpon>addOrder.cs</DependentUpon>
     </Compile>
     <Compile Include="ApiClient.cs" />
+    <Compile Include="extrasornon.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="extrasornon.Designer.cs">
+      <DependentUpon>extrasornon.cs</DependentUpon>
+    </Compile>
     <Compile Include="index.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -181,6 +187,9 @@
     </Compile>
     <EmbeddedResource Include="addOrder.resx">
       <DependentUpon>addOrder.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="extrasornon.resx">
+      <DependentUpon>extrasornon.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="index.resx">
       <DependentUpon>index.cs</DependentUpon>

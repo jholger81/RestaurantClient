@@ -43,6 +43,9 @@
             this.btnback = new System.Windows.Forms.Button();
             this.lbltable = new System.Windows.Forms.Label();
             this.btnDessert = new System.Windows.Forms.Button();
+            this.ltbPlanned = new System.Windows.Forms.ListBox();
+            this.btnCountmore = new System.Windows.Forms.Button();
+            this.btnCountless = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.nudcount)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -52,8 +55,9 @@
             this.ltbArticle.FormattingEnabled = true;
             this.ltbArticle.Location = new System.Drawing.Point(11, 143);
             this.ltbArticle.Name = "ltbArticle";
-            this.ltbArticle.Size = new System.Drawing.Size(586, 225);
+            this.ltbArticle.Size = new System.Drawing.Size(283, 225);
             this.ltbArticle.TabIndex = 0;
+            this.ltbArticle.DoubleClick += new System.EventHandler(this.ltbArticle_DoubleClick);
             // 
             // btnGetraenke
             // 
@@ -134,14 +138,14 @@
             // 
             // nudcount
             // 
-            this.nudcount.Location = new System.Drawing.Point(424, 387);
+            this.nudcount.Location = new System.Drawing.Point(475, 463);
             this.nudcount.Minimum = new decimal(new int[] {
             1,
             0,
             0,
             0});
             this.nudcount.Name = "nudcount";
-            this.nudcount.Size = new System.Drawing.Size(143, 20);
+            this.nudcount.Size = new System.Drawing.Size(73, 20);
             this.nudcount.TabIndex = 10;
             this.nudcount.Value = new decimal(new int[] {
             1,
@@ -189,11 +193,47 @@
             this.btnDessert.UseVisualStyleBackColor = true;
             this.btnDessert.Click += new System.EventHandler(this.btnDessert_Click);
             // 
+            // ltbPlanned
+            // 
+            this.ltbPlanned.FormattingEnabled = true;
+            this.ltbPlanned.Location = new System.Drawing.Point(314, 145);
+            this.ltbPlanned.Name = "ltbPlanned";
+            this.ltbPlanned.Size = new System.Drawing.Size(283, 225);
+            this.ltbPlanned.TabIndex = 17;
+            this.ltbPlanned.DoubleClick += new System.EventHandler(this.ltbPlanned_DoubleClick);
+            // 
+            // btnCountmore
+            // 
+            this.btnCountmore.BackColor = System.Drawing.Color.PaleGreen;
+            this.btnCountmore.Location = new System.Drawing.Point(523, 452);
+            this.btnCountmore.Name = "btnCountmore";
+            this.btnCountmore.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.btnCountmore.Size = new System.Drawing.Size(73, 64);
+            this.btnCountmore.TabIndex = 19;
+            this.btnCountmore.Text = "+1 ";
+            this.btnCountmore.UseVisualStyleBackColor = false;
+            this.btnCountmore.Click += new System.EventHandler(this.btnCountmore_Click);
+            // 
+            // btnCountless
+            // 
+            this.btnCountless.BackColor = System.Drawing.Color.Salmon;
+            this.btnCountless.Location = new System.Drawing.Point(542, 452);
+            this.btnCountless.Name = "btnCountless";
+            this.btnCountless.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.btnCountless.Size = new System.Drawing.Size(73, 64);
+            this.btnCountless.TabIndex = 20;
+            this.btnCountless.Text = "-1 ";
+            this.btnCountless.UseVisualStyleBackColor = false;
+            this.btnCountless.Click += new System.EventHandler(this.btnCountless_Click);
+            // 
             // addOrder
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(609, 620);
+            this.Controls.Add(this.btnCountless);
+            this.Controls.Add(this.btnCountmore);
+            this.Controls.Add(this.ltbPlanned);
             this.Controls.Add(this.btnDessert);
             this.Controls.Add(this.lbltable);
             this.Controls.Add(this.btnback);
@@ -235,5 +275,8 @@
         private System.Windows.Forms.Button btnback;
         private System.Windows.Forms.Label lbltable;
         private System.Windows.Forms.Button btnDessert;
+        private System.Windows.Forms.ListBox ltbPlanned;
+        private System.Windows.Forms.Button btnCountmore;
+        private System.Windows.Forms.Button btnCountless;
     }
 }
