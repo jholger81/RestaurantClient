@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(addOrder));
-            this.listBox1 = new System.Windows.Forms.ListBox();
+            this.ltbArticle = new System.Windows.Forms.ListBox();
             this.btnGetraenke = new System.Windows.Forms.Button();
             this.btnSpeisen = new System.Windows.Forms.Button();
             this.rtbextras = new System.Windows.Forms.RichTextBox();
@@ -47,13 +47,13 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
-            // listBox1
+            // ltbArticle
             // 
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.Location = new System.Drawing.Point(11, 143);
-            this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(586, 225);
-            this.listBox1.TabIndex = 0;
+            this.ltbArticle.FormattingEnabled = true;
+            this.ltbArticle.Location = new System.Drawing.Point(11, 143);
+            this.ltbArticle.Name = "ltbArticle";
+            this.ltbArticle.Size = new System.Drawing.Size(586, 225);
+            this.ltbArticle.TabIndex = 0;
             // 
             // btnGetraenke
             // 
@@ -63,6 +63,7 @@
             this.btnGetraenke.TabIndex = 1;
             this.btnGetraenke.Text = "Getränke";
             this.btnGetraenke.UseVisualStyleBackColor = true;
+            this.btnGetraenke.Click += new System.EventHandler(this.btnGetraenke_Click);
             // 
             // btnSpeisen
             // 
@@ -72,6 +73,7 @@
             this.btnSpeisen.TabIndex = 2;
             this.btnSpeisen.Text = "Speisen";
             this.btnSpeisen.UseVisualStyleBackColor = true;
+            this.btnSpeisen.Click += new System.EventHandler(this.btnSpeisen_Click);
             // 
             // rtbextras
             // 
@@ -119,6 +121,7 @@
             this.btnsavenext.TabIndex = 8;
             this.btnsavenext.Text = "Speichern\r\nund\r\nWeiter";
             this.btnsavenext.UseVisualStyleBackColor = false;
+            this.btnsavenext.Click += new System.EventHandler(this.btnsavenext_Click);
             // 
             // label2
             // 
@@ -132,11 +135,6 @@
             // nudcount
             // 
             this.nudcount.Location = new System.Drawing.Point(424, 387);
-            this.nudcount.Maximum = new decimal(new int[] {
-            10,
-            0,
-            0,
-            0});
             this.nudcount.Minimum = new decimal(new int[] {
             1,
             0,
@@ -189,6 +187,7 @@
             this.btnDessert.TabIndex = 16;
             this.btnDessert.Text = "Desserts";
             this.btnDessert.UseVisualStyleBackColor = true;
+            this.btnDessert.Click += new System.EventHandler(this.btnDessert_Click);
             // 
             // addOrder
             // 
@@ -208,7 +207,7 @@
             this.Controls.Add(this.rtbextras);
             this.Controls.Add(this.btnSpeisen);
             this.Controls.Add(this.btnGetraenke);
-            this.Controls.Add(this.listBox1);
+            this.Controls.Add(this.ltbArticle);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "addOrder";
             this.Text = "Artikel hinzufügen";
@@ -222,7 +221,7 @@
 
         #endregion
 
-        private System.Windows.Forms.ListBox listBox1;
+        private System.Windows.Forms.ListBox ltbArticle;
         private System.Windows.Forms.Button btnGetraenke;
         private System.Windows.Forms.Button btnSpeisen;
         private System.Windows.Forms.RichTextBox rtbextras;

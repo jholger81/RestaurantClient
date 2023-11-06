@@ -32,7 +32,8 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.tischwechselnToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.kellnerZuweisenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.listBox1 = new System.Windows.Forms.ListBox();
+            this.reportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ltbshoworderd = new System.Windows.Forms.ListBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -63,8 +64,8 @@
             this.btnTisch1 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.btndummy = new System.Windows.Forms.Button();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.menuStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -74,12 +75,14 @@
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tischwechselnToolStripMenuItem,
-            this.kellnerZuweisenToolStripMenuItem});
+            this.kellnerZuweisenToolStripMenuItem,
+            this.reportToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(867, 24);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
+            this.menuStrip1.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.menuStrip1_ItemClicked);
             // 
             // tischwechselnToolStripMenuItem
             // 
@@ -94,13 +97,20 @@
             this.kellnerZuweisenToolStripMenuItem.Size = new System.Drawing.Size(106, 20);
             this.kellnerZuweisenToolStripMenuItem.Text = "&Kellner zuweisen";
             // 
-            // listBox1
+            // reportToolStripMenuItem
             // 
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.Location = new System.Drawing.Point(2, 74);
-            this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(206, 277);
-            this.listBox1.TabIndex = 1;
+            this.reportToolStripMenuItem.Name = "reportToolStripMenuItem";
+            this.reportToolStripMenuItem.Size = new System.Drawing.Size(54, 20);
+            this.reportToolStripMenuItem.Text = "&Report";
+            this.reportToolStripMenuItem.Click += new System.EventHandler(this.reportToolStripMenuItem_Click);
+            // 
+            // ltbshoworderd
+            // 
+            this.ltbshoworderd.FormattingEnabled = true;
+            this.ltbshoworderd.Location = new System.Drawing.Point(2, 74);
+            this.ltbshoworderd.Name = "ltbshoworderd";
+            this.ltbshoworderd.Size = new System.Drawing.Size(206, 277);
+            this.ltbshoworderd.TabIndex = 1;
             // 
             // label1
             // 
@@ -167,7 +177,7 @@
             // 
             // btnTisch24
             // 
-            this.btnTisch24.BackColor = System.Drawing.Color.Khaki;
+            this.btnTisch24.BackColor = System.Drawing.Color.DarkSeaGreen;
             this.btnTisch24.Location = new System.Drawing.Point(400, 287);
             this.btnTisch24.Name = "btnTisch24";
             this.btnTisch24.Size = new System.Drawing.Size(75, 75);
@@ -222,7 +232,7 @@
             // 
             // btnTisch19
             // 
-            this.btnTisch19.BackColor = System.Drawing.Color.Khaki;
+            this.btnTisch19.BackColor = System.Drawing.Color.DarkSeaGreen;
             this.btnTisch19.Location = new System.Drawing.Point(322, 287);
             this.btnTisch19.Name = "btnTisch19";
             this.btnTisch19.Size = new System.Drawing.Size(75, 75);
@@ -288,7 +298,7 @@
             // 
             // btnTisch13
             // 
-            this.btnTisch13.BackColor = System.Drawing.Color.Khaki;
+            this.btnTisch13.BackColor = System.Drawing.Color.DarkSeaGreen;
             this.btnTisch13.Location = new System.Drawing.Point(225, 198);
             this.btnTisch13.Name = "btnTisch13";
             this.btnTisch13.Size = new System.Drawing.Size(75, 75);
@@ -332,7 +342,7 @@
             // 
             // btnTisch9
             // 
-            this.btnTisch9.BackColor = System.Drawing.Color.Khaki;
+            this.btnTisch9.BackColor = System.Drawing.Color.DarkSeaGreen;
             this.btnTisch9.Location = new System.Drawing.Point(147, 287);
             this.btnTisch9.Name = "btnTisch9";
             this.btnTisch9.Size = new System.Drawing.Size(75, 75);
@@ -354,7 +364,7 @@
             // 
             // btnTisch7
             // 
-            this.btnTisch7.BackColor = System.Drawing.Color.Khaki;
+            this.btnTisch7.BackColor = System.Drawing.Color.DarkSeaGreen;
             this.btnTisch7.Location = new System.Drawing.Point(147, 110);
             this.btnTisch7.Name = "btnTisch7";
             this.btnTisch7.Size = new System.Drawing.Size(75, 75);
@@ -451,6 +461,16 @@
             this.button2.UseVisualStyleBackColor = false;
             this.button2.Click += new System.EventHandler(this.btnadd_Click);
             // 
+            // btndummy
+            // 
+            this.btndummy.Location = new System.Drawing.Point(756, 74);
+            this.btndummy.Name = "btndummy";
+            this.btndummy.Size = new System.Drawing.Size(75, 23);
+            this.btndummy.TabIndex = 27;
+            this.btndummy.Text = "Get Tisch";
+            this.btndummy.UseVisualStyleBackColor = true;
+            this.btndummy.Click += new System.EventHandler(this.btndummy_Click);
+            // 
             // pictureBox1
             // 
             this.pictureBox1.Image = global::RestaurantClient.Properties.Resources.Gasthoflogo1;
@@ -462,16 +482,7 @@
             this.pictureBox1.TabIndex = 5;
             this.pictureBox1.TabStop = false;
             this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
-            // 
-            // btndummy
-            // 
-            this.btndummy.Location = new System.Drawing.Point(756, 74);
-            this.btndummy.Name = "btndummy";
-            this.btndummy.Size = new System.Drawing.Size(75, 23);
-            this.btndummy.TabIndex = 27;
-            this.btndummy.Text = "Get Tisch";
-            this.btndummy.UseVisualStyleBackColor = true;
-            this.btndummy.Click += new System.EventHandler(this.btndummy_Click);
+            this.pictureBox1.MouseLeave += new System.EventHandler(this.pictureBox1_MouseLeave);
             // 
             // index
             // 
@@ -485,12 +496,13 @@
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.listBox1);
+            this.Controls.Add(this.ltbshoworderd);
             this.Controls.Add(this.menuStrip1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "index";
             this.Text = "Gasthof zum goldenen Lindemann";
+            this.Load += new System.EventHandler(this.index_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.groupBox1.ResumeLayout(false);
@@ -504,7 +516,7 @@
 
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem tischwechselnToolStripMenuItem;
-        private System.Windows.Forms.ListBox listBox1;
+        private System.Windows.Forms.ListBox ltbshoworderd;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.GroupBox groupBox1;
@@ -538,5 +550,6 @@
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.ToolStripMenuItem kellnerZuweisenToolStripMenuItem;
         private System.Windows.Forms.Button btndummy;
+        private System.Windows.Forms.ToolStripMenuItem reportToolStripMenuItem;
     }
 }
