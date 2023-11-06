@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Media;
 using System.Security.Claims;
@@ -19,6 +20,8 @@ namespace RestaurantClient
     public partial class index : Form
     {
         int intselectedTable = 0;
+        int inteac = 0;
+
 
         public index()
         {
@@ -26,9 +29,14 @@ namespace RestaurantClient
             this.FormBorderStyle = FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
+
+
+
+
+
         }
 
-    
+
 
         private void btnadd_Click(object sender, EventArgs e)
         {
@@ -52,7 +60,7 @@ namespace RestaurantClient
                 // Show the settings form
                 payMenu.Show();
             }
-            
+
         }
 
         private void tischwechselnToolStripMenuItem_Click(object sender, EventArgs e)
@@ -68,12 +76,29 @@ namespace RestaurantClient
 
         }
 
-        private void ButtonClick(object sender, EventArgs e)
+        private async void ButtonClick(object sender, EventArgs e)
         {
-            
-            
+
+            ltbshoworderd.Items.Clear();
             intselectedTable = Int32.Parse(((Button)sender).Text.Remove(0, 6));
+
+            ApiClient apiClient = new ApiClient();
+            //string apiUrl = "https://localhost:1337/tables";
+            string apiUrl = "https://localhost:1337/orders/" + intselectedTable.ToString();
+            //string result = ...
+            Bestellung bestellung = await apiClient.GetDataFromApiGeneric<Bestellung>(apiUrl);
+            Console.WriteLine("");
+            if (bestellung != null)
+            {
+                foreach (var pos in bestellung.Positionen)
+                {
+
+                    ltbshoworderd.Items.Add(pos.Artikel.Name);
+
+                }
+            }
         }
+            
 
         private async void btndummy_Click(object sender, EventArgs e)
         {
@@ -97,16 +122,58 @@ namespace RestaurantClient
 
             ApiClient apiClient = new ApiClient();
             //string apiUrl = "https://localhost:1337/tables";
-            string apiUrl = "https://localhost:1337/orders/7";
+            string apiUrl = "https://localhost:1337/articles/drinks";
             //string result = ...
-            List<Artikel> tische = await apiClient.GetDataFromApiGeneric<List<Artikel>>(apiUrl);
+            List<Artikel> Artikel = await apiClient.GetDataFromApiGeneric<List<Artikel>>(apiUrl);
             Console.WriteLine("");
+            MessageBox.Show(Artikel.First().Name);
         }
 
         private void pictureBox1_Click(object sender, EventArgs e)
         {
-            SoundPlayer simpleSound = new SoundPlayer(@"H:\LF10\RestaurantClient-old\RestaurantClient\RestaurantClient\Resources\palim.wav");
-            simpleSound.Play();
+
+            inteac++;
+            if (inteac >= 5)
+            {
+
+                SoundPlayer simpleSound = new SoundPlayer(@".\palim.wav");
+                simpleSound.Play();
+            }
+
+        }
+
+        private void pictureBox1_MouseLeave(object sender, EventArgs e)
+        {
+            inteac = 0;
+        }
+
+        private void menuStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+          
+        }
+
+        private async void index_Load(object sender, EventArgs e)
+        {
+            ApiClient apiClient = new ApiClient();
+            //string apiUrl = "https://localhost:1337/tables";
+            string apiUrl = "https://localhost:1337/tables/open";
+            //string result = ...
+            List<Tisch> tischliste = await apiClient.GetDataFromApiGeneric<List<Tisch>>(apiUrl);
+            Console.WriteLine("");
+            foreach (var tisch in tischliste)
+            {
+                Button ctn = (Button)this.Controls.Find("btnTisch" + Convert.ToString(tisch.ID_Tisch), true)[0];
+                ctn.BackColor = Color.Khaki;
+
+            }
+        }
+
+        private void reportToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Form report = new report();
+
+            // Show the settings form
+            report.Show();
         }
     }
 }
