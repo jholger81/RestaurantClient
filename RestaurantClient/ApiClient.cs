@@ -7,6 +7,7 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Text;
 using System.Xml.Linq;
+using System.Windows.Forms;
 
 public class ApiClient
 {
@@ -68,6 +69,9 @@ public class ApiClient
 
     public async void PostDataToApiGeneric<T>(string apiUrl, T data)
     {
+        
+
+
         try
         {
             // Serialize the object to a JSON string
@@ -75,8 +79,19 @@ public class ApiClient
 
             // Create an instance of StringContent from the JSON string
             var content = new StringContent(jsonString, Encoding.UTF8, "application/json");
+            var request = new HttpRequestMessage(HttpMethod.Post, apiUrl);
+            request.Content = content;
 
-            HttpResponseMessage response = await httpClient.PostAsync(apiUrl, content);
+            httpClient.Timeout = TimeSpan.FromMinutes(3);
+            HttpResponseMessage response = await httpClient.SendAsync(request);
+            if (response.IsSuccessStatusCode)
+            {
+                MessageBox.Show("Die Bestellung wurde erfolgreich an die API gesendet.");
+            }
+            else
+            {
+                MessageBox.Show($"Fehler beim Senden der Bestellung. HTTP-Statuscode: {response.StatusCode}");
+            }
         }
         catch (Exception ex)
         {

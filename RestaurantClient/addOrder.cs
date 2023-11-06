@@ -116,18 +116,19 @@ namespace RestaurantClient
 
 
 
-            string jsonOrder = System.Text.Json.JsonSerializer.Serialize(newOrder);
-            var request = new HttpRequestMessage(HttpMethod.Post, apiUrl);
-            request.Content = new StringContent(jsonOrder, Encoding.UTF8, "application/json");
-            HttpResponseMessage response = await httpClient.SendAsync(request);
-            if (response.IsSuccessStatusCode)
-            {
-                MessageBox.Show("Die Bestellung wurde erfolgreich an die API gesendet.");
-            }
-            else
-            {
-                MessageBox.Show($"Fehler beim Senden der Bestellung. HTTP-Statuscode: {response.StatusCode}");
-            }
+            //string jsonOrder = System.Text.Json.JsonSerializer.Serialize(newOrder);
+            //var request = new HttpRequestMessage(HttpMethod.Post, apiUrl);
+            //request.Content = new StringContent(jsonOrder, Encoding.UTF8, "application/json");
+            //HttpResponseMessage response = await httpClient.SendAsync(request);
+            //if (response.IsSuccessStatusCode)
+            //{
+            //    MessageBox.Show("Die Bestellung wurde erfolgreich an die API gesendet.");
+            //}
+            //else
+            //{
+            //    MessageBox.Show($"Fehler beim Senden der Bestellung. HTTP-Statuscode: {response.StatusCode}");
+            //}
+            apiClient.PostDataToApiGeneric(apiUrl, newOrder);
 
             Console.WriteLine("");
         }
