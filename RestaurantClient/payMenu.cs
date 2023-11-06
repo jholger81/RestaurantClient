@@ -82,7 +82,7 @@ namespace RestaurantClient
                     rtbTips.Text = Convert.ToString(tipsInEuro);
                 }
             }
-            //Todo: TIPs berechnen
+            
         }
     }
 }

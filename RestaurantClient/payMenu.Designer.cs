@@ -124,7 +124,7 @@
             this.rtbmoneygive.Name = "rtbmoneygive";
             this.rtbmoneygive.Size = new System.Drawing.Size(150, 39);
             this.rtbmoneygive.TabIndex = 9;
-            this.rtbmoneygive.Text = "0000,00";
+            this.rtbmoneygive.Text = "";
             this.rtbmoneygive.TextChanged += new System.EventHandler(this.rtbmoneygive_TextChanged);
             this.rtbmoneygive.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.rtbmoneygive_KeyPress);
             this.rtbmoneygive.KeyUp += new System.Windows.Forms.KeyEventHandler(this.rtbmoneygive_KeyUp);
