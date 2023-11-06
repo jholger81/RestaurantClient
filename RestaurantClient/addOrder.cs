@@ -11,6 +11,7 @@ using Restaurant.Models;
 using RestaurantClient.Properties;
 using System.Net.Http;
 using System.Text;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace RestaurantClient
 {
@@ -49,7 +50,7 @@ namespace RestaurantClient
             Console.WriteLine("");
             foreach (var article in artikelliste)
             {
-                ltbArticle.Items.Add(article.ID_Artikel + "- " + article.Name);
+                ltbArticle.Items.Add(article.ID_Artikel + " - " + article.Name);
 
             }
         }
@@ -116,21 +117,67 @@ namespace RestaurantClient
 
 
 
-            //string jsonOrder = System.Text.Json.JsonSerializer.Serialize(newOrder);
-            //var request = new HttpRequestMessage(HttpMethod.Post, apiUrl);
-            //request.Content = new StringContent(jsonOrder, Encoding.UTF8, "application/json");
-            //HttpResponseMessage response = await httpClient.SendAsync(request);
-            //if (response.IsSuccessStatusCode)
-            //{
-            //    MessageBox.Show("Die Bestellung wurde erfolgreich an die API gesendet.");
-            //}
-            //else
-            //{
-            //    MessageBox.Show($"Fehler beim Senden der Bestellung. HTTP-Statuscode: {response.StatusCode}");
-            //}
-            apiClient.PostDataToApiGeneric(apiUrl, newOrder);
+            string jsonOrder = System.Text.Json.JsonSerializer.Serialize(newOrder);
+            var request = new HttpRequestMessage(HttpMethod.Post, apiUrl);
+            request.Content = new StringContent(jsonOrder, Encoding.UTF8, "application/json");
+            HttpResponseMessage response = await httpClient.SendAsync(request);
+            if (response.IsSuccessStatusCode)
+            {
+                MessageBox.Show("Die Bestellung wurde erfolgreich an die API gesendet.");
+            }
+            else
+            {
+                MessageBox.Show($"Fehler beim Senden der Bestellung. HTTP-Statuscode: {response.StatusCode}");
+            }
 
             Console.WriteLine("");
         }
+
+        private void btnCountmore_Click(object sender, EventArgs e)
+        {
+            nudcount.Value += 1;
+        }
+
+        private void btnCountless_Click(object sender, EventArgs e)
+        {
+            if (nudcount.Value > 1)
+            {
+                nudcount.Value -= 1;
+            }
+            
+        }
+
+        private void ltbArticle_DoubleClick(object sender, EventArgs e)
+        {
+            if (ltbArticle.SelectedItem != null)
+            {
+                ltbPlanned.Items.Add(ltbArticle.SelectedItem);
+            }
+        }
+
+        private void ltbPlanned_DoubleClick(object sender, EventArgs e)
+        {
+            using (var extraornon = new extrasornon(ltbPlanned.SelectedItem.ToString()))
+            {
+                var dummy = ltbPlanned.SelectedItem as string; // Annahme, dass die ListBox-Elemente Strings sind
+
+                // Zeigen Sie das Einstellungsformular modal an und warten Sie auf Benutzereingabe
+                if (extraornon.ShowDialog() == DialogResult.OK)
+                {
+                    if (extraornon.ReturnValue1 != String.Empty)
+                    {
+                        // Fügen Sie den übergebenen Text zum ausgewählten Element hinzu
+                        dummy += " - " + extraornon.ReturnValue1.ToString();
+
+                        // Aktualisieren Sie das ausgewählte Element in der ListBox
+                        ltbPlanned.Items[ltbPlanned.SelectedIndex] = dummy;
+                    }
+                }
+            }
+        }
+
+       
+
+
     }
 }
