@@ -102,7 +102,7 @@ namespace RestaurantClient
                 }
             }
         }
-            
+
 
         private async void btndummy_Click(object sender, EventArgs e)
         {
@@ -153,7 +153,7 @@ namespace RestaurantClient
 
         private void menuStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
-          
+
         }
 
         private async void index_Load(object sender, EventArgs e)
@@ -171,7 +171,7 @@ namespace RestaurantClient
                     Button ctn = (Button)this.Controls.Find("btnTisch" + Convert.ToString(tisch.ID_Tisch), true)[0];
                     ctn.BackColor = Color.Salmon;
                 }
-                
+
 
             }
 
@@ -227,9 +227,9 @@ namespace RestaurantClient
             }
 
 
-           
 
-            
+
+
             //string apiUrl = "https://localhost:1337/tables";
             apiUrl = "https://localhost:1337/tables/open";
             //string result = ...
@@ -244,6 +244,10 @@ namespace RestaurantClient
                 }
             }
         }
+
+        private void kellnerZuweisenToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            // todoo switch/{id_Kellner}/{id_Tisch
+        }
     }
-    
 }

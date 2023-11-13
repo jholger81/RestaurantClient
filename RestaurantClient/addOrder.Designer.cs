@@ -37,16 +37,11 @@
             this.btnreset = new System.Windows.Forms.Button();
             this.btnsaveclose = new System.Windows.Forms.Button();
             this.btnsavenext = new System.Windows.Forms.Button();
-            this.label2 = new System.Windows.Forms.Label();
-            this.nudcount = new System.Windows.Forms.NumericUpDown();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.btnback = new System.Windows.Forms.Button();
             this.lbltable = new System.Windows.Forms.Label();
             this.btnDessert = new System.Windows.Forms.Button();
             this.ltbPlanned = new System.Windows.Forms.ListBox();
-            this.btnCountmore = new System.Windows.Forms.Button();
-            this.btnCountless = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.nudcount)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -129,32 +124,6 @@
             this.btnsavenext.UseVisualStyleBackColor = false;
             this.btnsavenext.Click += new System.EventHandler(this.btnsavenext_Click);
             // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(421, 371);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(40, 13);
-            this.label2.TabIndex = 9;
-            this.label2.Text = "Menge";
-            // 
-            // nudcount
-            // 
-            this.nudcount.Location = new System.Drawing.Point(475, 463);
-            this.nudcount.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.nudcount.Name = "nudcount";
-            this.nudcount.Size = new System.Drawing.Size(73, 20);
-            this.nudcount.TabIndex = 10;
-            this.nudcount.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            // 
             // pictureBox1
             // 
             this.pictureBox1.Image = global::RestaurantClient.Properties.Resources.Gasthoficon;
@@ -204,44 +173,16 @@
             this.ltbPlanned.TabIndex = 17;
             this.ltbPlanned.DoubleClick += new System.EventHandler(this.ltbPlanned_DoubleClick);
             // 
-            // btnCountmore
-            // 
-            this.btnCountmore.BackColor = System.Drawing.Color.PaleGreen;
-            this.btnCountmore.Location = new System.Drawing.Point(523, 452);
-            this.btnCountmore.Name = "btnCountmore";
-            this.btnCountmore.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.btnCountmore.Size = new System.Drawing.Size(73, 64);
-            this.btnCountmore.TabIndex = 19;
-            this.btnCountmore.Text = "+1 ";
-            this.btnCountmore.UseVisualStyleBackColor = false;
-            this.btnCountmore.Click += new System.EventHandler(this.btnCountmore_Click);
-            // 
-            // btnCountless
-            // 
-            this.btnCountless.BackColor = System.Drawing.Color.Salmon;
-            this.btnCountless.Location = new System.Drawing.Point(542, 452);
-            this.btnCountless.Name = "btnCountless";
-            this.btnCountless.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.btnCountless.Size = new System.Drawing.Size(73, 64);
-            this.btnCountless.TabIndex = 20;
-            this.btnCountless.Text = "-1 ";
-            this.btnCountless.UseVisualStyleBackColor = false;
-            this.btnCountless.Click += new System.EventHandler(this.btnCountless_Click);
-            // 
             // addOrder
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(609, 620);
-            this.Controls.Add(this.btnCountless);
-            this.Controls.Add(this.btnCountmore);
             this.Controls.Add(this.ltbPlanned);
             this.Controls.Add(this.btnDessert);
             this.Controls.Add(this.lbltable);
             this.Controls.Add(this.btnback);
             this.Controls.Add(this.pictureBox1);
-            this.Controls.Add(this.nudcount);
-            this.Controls.Add(this.label2);
             this.Controls.Add(this.btnsavenext);
             this.Controls.Add(this.btnsaveclose);
             this.Controls.Add(this.btnreset);
@@ -254,7 +195,6 @@
             this.Name = "addOrder";
             this.Text = "Artikel hinzufügen";
             this.Load += new System.EventHandler(this.addOrder_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.nudcount)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -271,14 +211,10 @@
         private System.Windows.Forms.Button btnreset;
         private System.Windows.Forms.Button btnsaveclose;
         private System.Windows.Forms.Button btnsavenext;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.NumericUpDown nudcount;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Button btnback;
         private System.Windows.Forms.Label lbltable;
         private System.Windows.Forms.Button btnDessert;
         private System.Windows.Forms.ListBox ltbPlanned;
-        private System.Windows.Forms.Button btnCountmore;
-        private System.Windows.Forms.Button btnCountless;
     }
 }
