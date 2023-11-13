@@ -1,0 +1,1 @@
+Select bst.ID_Tisch, bst.ID_Bestellung, bsp.ID_Bestellposition, bsp.Geliefert, art.name from Bestellung bst left join Bestellposition bsp on bst.ID_Bestellung = bsp.ID_Bestellung left join Artikel art on bsp.ID_Artikel = art.ID_Artikel where ID_Tisch = 4 order by bst.ID_Bestellung;
