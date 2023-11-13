@@ -16,6 +16,7 @@ namespace RestaurantClient
     public partial class payMenu : Form
     {
         public int intselectedTable;
+        public double inttopay;
         public payMenu(int intselectedTabledummy)
         {
             InitializeComponent();
@@ -24,9 +25,9 @@ namespace RestaurantClient
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             lbltable.Text = "Ausgewählter Tisch: " + intselectedTable;
-
-
-
+            inttopay = 0;
+            rtbcost.Text = inttopay.ToString();
+            
         }
 
         private void btnback_Click(object sender, EventArgs e)
@@ -99,13 +100,16 @@ namespace RestaurantClient
             //string result = ...
             List<Bestellung> bestellungen = await apiClient.GetDataFromApiGeneric<List<Bestellung>>(apiUrl);
             Console.WriteLine("");
+
+            
+
             if (bestellungen != null)
             {
                 foreach (var bestellung in bestellungen)
                 {
                     foreach (var pos in bestellung.Positionen)
                     {
-                        clbnotpayed.Items.Add(pos.ID_Bestellposition + " - " + pos.Artikel.Name);
+                        clbnotpayed.Items.Add(pos.ID_Artikel + " - " + pos.Artikel.Name);
 
                     }
                 }
@@ -121,12 +125,71 @@ namespace RestaurantClient
                     foreach (var pos in bestellung.Positionen)
                     {
 
-                        lbpayed.Items.Add(pos.ID_Bestellposition + " - " + pos.Artikel.Name);
+                        lbpayed.Items.Add(pos.ID_Artikel + " - " + pos.Artikel.Name);
 
                     }
                 }
             }
 
+            
+            clbnotpayed.SelectedIndex = 0;
+
+
+        }
+
+        private async void clbnotpayed_ItemCheck(object sender, ItemCheckEventArgs e)
+        {
+            
+            ApiClient apiClient = new ApiClient();
+            //string apiUrl = "https://localhost:1337/tables";
+            if (clbnotpayed.SelectedItem != null)
+            {
+                string apiUrl = "https://localhost:1337/articles/id/" + clbnotpayed.SelectedItem.ToString().Split('-')[0];
+                //string result = ...
+                Artikel artikel = await apiClient.GetDataFromApiGeneric<Artikel>(apiUrl);
+                Console.WriteLine("");
+                if (artikel != null)
+                {
+                    if (e.CurrentValue == CheckState.Checked)
+                    {
+                        inttopay -= (double)Math.Round((double)artikel.Preis / 100, 2);
+                        if (inttopay < 0) inttopay = 0;
+                        rtbcost.Text = inttopay.ToString();
+                    }
+                    else
+                    {
+                        inttopay += (double)Math.Round((double)artikel.Preis / 100, 2);
+                        rtbcost.Text = inttopay.ToString();
+                    }
+
+                }
+            }
+        }
+            
+
+        private void cbxpayrest_CheckedChanged(object sender, EventArgs e)
+        {
+            if (cbxpayrest.Checked)
+            {
+                for (int i = 0; i < clbnotpayed.Items.Count; i++)
+                {
+                    if (clbnotpayed.GetItemChecked(i) == false)
+                    {
+                        clbnotpayed.SetItemChecked(i, true);
+                    }
+                    
+                }
+
+            }
+            else
+            {
+                for (int i = 0; i < clbnotpayed.Items.Count; i++)
+                {
+                    clbnotpayed.SetItemChecked(i, false);
+                   
+                }
+            }
+           
         }
     }
 }
