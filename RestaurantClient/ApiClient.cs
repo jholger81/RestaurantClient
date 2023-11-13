@@ -70,7 +70,7 @@ public class ApiClient
     public async Task <HttpResponseMessage> PostDataToApiGeneric<T>(string apiUrl, T data)
     {
         HttpResponseMessage response = new HttpResponseMessage();
-        response.StatusCode = System.Net.HttpStatusCode.BadRequest;
+        response.StatusCode = System.Net.HttpStatusCode.Unauthorized;
         try
         {
             // Serialize the object to a JSON string
@@ -81,14 +81,15 @@ public class ApiClient
             var request = new HttpRequestMessage(HttpMethod.Post, apiUrl);
             request.Content = content;
 
+            httpClient.Timeout = TimeSpan.FromMinutes(3);
             response = await httpClient.SendAsync(request);
             if (response.IsSuccessStatusCode)
             {
-                MessageBox.Show($"Success, HTTP-Statuscode: {response.StatusCode}");
+                MessageBox.Show("Die Bestellung wurde erfolgreich an die API gesendet.");
             }
             else
             {
-                MessageBox.Show($"Not successful, HTTP-Statuscode: {response.StatusCode}");
+                MessageBox.Show($"Fehler beim Senden der Bestellung. HTTP-Statuscode: {response.StatusCode}");
             }
         }
         catch (Exception ex)
@@ -98,32 +99,7 @@ public class ApiClient
         return response;
     }
 
-    public async Task<HttpResponseMessage> PutDataToApiGeneric<T>(string apiUrl, T data)
-    {
-        HttpResponseMessage response = new HttpResponseMessage();
-        response.StatusCode = System.Net.HttpStatusCode.BadRequest;
-        try
-        {
-            // Serialize the object to a JSON string
-            string jsonString = JsonSerializer.Serialize(data);
 
-            // Create an instance of StringContent from the JSON string
-            var content = new StringContent(jsonString, Encoding.UTF8, "application/json");
-            
-            response = await httpClient.PutAsync(apiUrl, content);
-            if (response.IsSuccessStatusCode)
-            {
-                MessageBox.Show($"Success, HTTP-Statuscode: {response.StatusCode}");
-            }
-            else
-            {
-                MessageBox.Show($"Not successful, HTTP-Statuscode: {response.StatusCode}");
-            }
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine($"An error occurred: {ex.Message}");
-        }
-        return response;
-    }
+
+
 }
