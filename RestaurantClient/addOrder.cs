@@ -120,13 +120,6 @@ namespace RestaurantClient
                 newOrder.Positionen.Add(position);
             }
 
-
-
-
-            //string jsonOrder = System.Text.Json.JsonSerializer.Serialize(newOrder);
-            //var request = new HttpRequestMessage(HttpMethod.Post, apiUrl);
-            //request.Content = new StringContent(jsonOrder, Encoding.UTF8, "application/json");
-            //HttpResponseMessage response = await httpClient.SendAsync(request);
             var response = await apiClient.PostDataToApiGeneric<Bestellung>(apiUrl, newOrder);
             if (response.IsSuccessStatusCode)
             {
