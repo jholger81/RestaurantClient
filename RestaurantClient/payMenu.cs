@@ -9,18 +9,24 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Restaurant;
+using Restaurant.Models;
 
 namespace RestaurantClient
 {
     public partial class payMenu : Form
     {
-        public payMenu(int intselectedTable)
+        public int intselectedTable;
+        public payMenu(int intselectedTabledummy)
         {
             InitializeComponent();
+            intselectedTable = intselectedTabledummy;
             this.FormBorderStyle = FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             lbltable.Text = "Ausgewählter Tisch: " + intselectedTable;
+
+
+
         }
 
         private void btnback_Click(object sender, EventArgs e)
@@ -83,6 +89,44 @@ namespace RestaurantClient
                 }
             }
             
+        }
+
+        private async void payMenu_Load(object sender, EventArgs e)
+        {
+            ApiClient apiClient = new ApiClient();
+            //string apiUrl = "https://localhost:1337/tables";
+            string apiUrl = "https://localhost:1337/orders/" + intselectedTable.ToString() + "/open";
+            //string result = ...
+            List<Bestellung> bestellungen = await apiClient.GetDataFromApiGeneric<List<Bestellung>>(apiUrl);
+            Console.WriteLine("");
+            if (bestellungen != null)
+            {
+                foreach (var bestellung in bestellungen)
+                {
+                    foreach (var pos in bestellung.Positionen)
+                    {
+                        clbnotpayed.Items.Add(pos.ID_Bestellposition + " - " + pos.Artikel.Name);
+
+                    }
+                }
+            }
+
+            apiUrl = "https://localhost:1337/orders/" + intselectedTable.ToString() + "/closed";
+            bestellungen = await apiClient.GetDataFromApiGeneric<List<Bestellung>>(apiUrl);
+            Console.WriteLine("");
+            if (bestellungen != null)
+            {
+                foreach (var bestellung in bestellungen)
+                {
+                    foreach (var pos in bestellung.Positionen)
+                    {
+
+                        lbpayed.Items.Add(pos.ID_Bestellposition + " - " + pos.Artikel.Name);
+
+                    }
+                }
+            }
+
         }
     }
 }

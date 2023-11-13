@@ -24,7 +24,7 @@ namespace RestaurantClient
             this.FormBorderStyle = FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            nudcount.Controls[0].Hide();
+            
             lbltable.Text = "Ausgewählter Tisch: " + intselectedTable1;
             intselectedTable = intselectedTable1;
         }
@@ -140,19 +140,7 @@ namespace RestaurantClient
             Console.WriteLine("");
         }
 
-        private void btnCountmore_Click(object sender, EventArgs e)
-        {
-            nudcount.Value += 1;
-        }
-
-        private void btnCountless_Click(object sender, EventArgs e)
-        {
-            if (nudcount.Value > 1)
-            {
-                nudcount.Value -= 1;
-            }
-            
-        }
+     
 
         private void ltbArticle_DoubleClick(object sender, EventArgs e)
         {
