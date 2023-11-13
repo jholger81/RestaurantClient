@@ -93,27 +93,13 @@ namespace RestaurantClient
 
             ApiClient apiClient = new ApiClient();
             HttpClient httpClient = new HttpClient();
-            //string apiUrl = "https://localhost:1337/tables";
             string apiUrl = "https://localhost:1337/orders/new";
-   
-          
+
             Bestellung newOrder = new Bestellung
             {
                 Datum = DateTime.Now,
                 ID_Tisch = intselectedTable, // Beispielwert
-                Positionen = new List<Bestellposition>
-            {
-                //new Bestellposition
-                //{
-                //    ID_Artikel = Int32.Parse(parts[0]), // Beispielwert
-                //    Extras = parts[2] + " " + parts[3],
-                //    Geliefert = 0
-                //},
-                // Fügen Sie weitere Bestellpositionen hinzu
-            }
-
-
-
+                Positionen = new List<Bestellposition>()
             };
 
             foreach (var item in ltbPlanned.Items)
@@ -137,10 +123,11 @@ namespace RestaurantClient
 
 
 
-            string jsonOrder = System.Text.Json.JsonSerializer.Serialize(newOrder);
-            var request = new HttpRequestMessage(HttpMethod.Post, apiUrl);
-            request.Content = new StringContent(jsonOrder, Encoding.UTF8, "application/json");
-            HttpResponseMessage response = await httpClient.SendAsync(request);
+            //string jsonOrder = System.Text.Json.JsonSerializer.Serialize(newOrder);
+            //var request = new HttpRequestMessage(HttpMethod.Post, apiUrl);
+            //request.Content = new StringContent(jsonOrder, Encoding.UTF8, "application/json");
+            //HttpResponseMessage response = await httpClient.SendAsync(request);
+            var response = await apiClient.PostDataToApiGeneric<Bestellung>(apiUrl, newOrder);
             if (response.IsSuccessStatusCode)
             {
                 MessageBox.Show("Die Bestellung wurde erfolgreich an die API gesendet.");
