@@ -110,7 +110,7 @@ namespace RestaurantClient
                 }
             }
         }
-            
+
 
         private async void btndummy_Click(object sender, EventArgs e)
         {
@@ -161,7 +161,7 @@ namespace RestaurantClient
 
         private void menuStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
-          
+
         }
 
         private async void index_Load(object sender, EventArgs e)
@@ -303,6 +303,10 @@ namespace RestaurantClient
                 }
             }
         }
+
+        private void kellnerZuweisenToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            // todoo switch/{id_Kellner}/{id_Tisch
+        }
     }
-    
 }

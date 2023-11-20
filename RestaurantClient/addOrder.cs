@@ -24,7 +24,7 @@ namespace RestaurantClient
             this.FormBorderStyle = FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            nudcount.Controls[0].Hide();
+
             lbltable.Text = "Ausgewählter Tisch: " + intselectedTable1;
             intselectedTable = intselectedTable1;
         }
@@ -89,7 +89,7 @@ namespace RestaurantClient
 
         private async void btnsavenext_Click(object sender, EventArgs e)
         {
-            
+
 
             ApiClient apiClient = new ApiClient();
             //HttpClient httpClient = new HttpClient();
@@ -104,9 +104,9 @@ namespace RestaurantClient
 
             foreach (var item in ltbPlanned.Items)
             {
-                string[] parts = item.ToString().Split('-'); 
+                string[] parts = item.ToString().Split('-');
                 string extradump = "";
-               
+
 
                 if (parts.Count() == 4) { extradump = parts[2] + " " + parts[3]; }
                 // Erstellen einer neuen Bestellposition und Hinzufügen zur Liste in newOrder
@@ -133,19 +133,7 @@ namespace RestaurantClient
             Console.WriteLine("");
         }
 
-        private void btnCountmore_Click(object sender, EventArgs e)
-        {
-            nudcount.Value += 1;
-        }
 
-        private void btnCountless_Click(object sender, EventArgs e)
-        {
-            if (nudcount.Value > 1)
-            {
-                nudcount.Value -= 1;
-            }
-            
-        }
 
         private void ltbArticle_DoubleClick(object sender, EventArgs e)
         {
@@ -178,7 +166,7 @@ namespace RestaurantClient
 
         private async void btnsaveclose_Click(object sender, EventArgs e)
         {
-            
+
 
             ApiClient apiClient = new ApiClient();
             HttpClient httpClient = new HttpClient();
@@ -209,7 +197,7 @@ namespace RestaurantClient
             {
                 string[] parts = item.ToString().Split('-');
                 string extradump = "";
-                
+
 
                 if (parts.Count() == 4) { extradump = parts[2] + " " + parts[3]; }
                 // Erstellen einer neuen Bestellposition und Hinzufügen zur Liste in newOrder

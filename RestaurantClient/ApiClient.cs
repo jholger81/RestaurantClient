@@ -106,7 +106,7 @@ public class ApiClient
         }
     }
 
-    public async Task <HttpResponseMessage> PostDataToApiGeneric<T>(string apiUrl, T data)
+    public async Task<HttpResponseMessage> PostDataToApiGeneric<T>(string apiUrl, T data)
     {
         HttpResponseMessage response = new HttpResponseMessage();
         response.StatusCode = System.Net.HttpStatusCode.BadRequest;
@@ -148,7 +148,7 @@ public class ApiClient
 
             // Create an instance of StringContent from the JSON string
             var content = new StringContent(jsonString, Encoding.UTF8, "application/json");
-            
+
             response = await httpClient.PutAsync(apiUrl, content);
             if (response.IsSuccessStatusCode)
             {

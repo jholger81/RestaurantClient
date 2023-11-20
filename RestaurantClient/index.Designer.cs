@@ -33,6 +33,7 @@
             this.tischwechselnToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.kellnerZuweisenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.reportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.kellnerEinloggenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ltbshoworderd = new System.Windows.Forms.ListBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -66,7 +67,6 @@
             this.button2 = new System.Windows.Forms.Button();
             this.btndummy = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.kellnerEinloggenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -98,6 +98,7 @@
             this.kellnerZuweisenToolStripMenuItem.Name = "kellnerZuweisenToolStripMenuItem";
             this.kellnerZuweisenToolStripMenuItem.Size = new System.Drawing.Size(106, 20);
             this.kellnerZuweisenToolStripMenuItem.Text = "&Kellner zuweisen";
+            this.kellnerZuweisenToolStripMenuItem.Click += new System.EventHandler(this.kellnerZuweisenToolStripMenuItem_Click);
             // 
             // reportToolStripMenuItem
             // 
@@ -105,6 +106,13 @@
             this.reportToolStripMenuItem.Size = new System.Drawing.Size(54, 20);
             this.reportToolStripMenuItem.Text = "&Report";
             this.reportToolStripMenuItem.Click += new System.EventHandler(this.reportToolStripMenuItem_Click);
+            // 
+            // kellnerEinloggenToolStripMenuItem
+            // 
+            this.kellnerEinloggenToolStripMenuItem.Name = "kellnerEinloggenToolStripMenuItem";
+            this.kellnerEinloggenToolStripMenuItem.Size = new System.Drawing.Size(111, 20);
+            this.kellnerEinloggenToolStripMenuItem.Text = "Kellner einloggen";
+            this.kellnerEinloggenToolStripMenuItem.Click += new System.EventHandler(this.kellnerEinloggenToolStripMenuItem_Click);
             // 
             // ltbshoworderd
             // 
@@ -485,13 +493,6 @@
             this.pictureBox1.TabStop = false;
             this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
             this.pictureBox1.MouseLeave += new System.EventHandler(this.pictureBox1_MouseLeave);
-            // 
-            // kellnerEinloggenToolStripMenuItem
-            // 
-            this.kellnerEinloggenToolStripMenuItem.Name = "kellnerEinloggenToolStripMenuItem";
-            this.kellnerEinloggenToolStripMenuItem.Size = new System.Drawing.Size(111, 20);
-            this.kellnerEinloggenToolStripMenuItem.Text = "Kellner einloggen";
-            this.kellnerEinloggenToolStripMenuItem.Click += new System.EventHandler(this.kellnerEinloggenToolStripMenuItem_Click);
             // 
             // index
             // 
