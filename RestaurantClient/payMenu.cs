@@ -186,7 +186,7 @@ namespace RestaurantClient
 
         private void btnprint_Click(object sender, EventArgs e)
         {
-            PrintDocument p = new PrintDocument();
+            PrintDocument docToPrint = new PrintDocument();
             string stringToPrint = "";
             string header = "Rechnung zum Goldenen Lindemann\r\n\r\n";
             stringToPrint += $"Datum: {DateTime.Now.ToString()}\r\n";
@@ -198,21 +198,25 @@ namespace RestaurantClient
                 stringToPrint += $"{item.ToString()}\r\n";
             }
 
-            stringToPrint += $"\r\n{inttopay}";
-            stringToPrint += $"\r\n{rtbmoneygive.Text}";
+            stringToPrint += $"\r\nZu begleichender Betrag: {inttopay}";
+            stringToPrint += $"\r\nBezahlte Betrag:{rtbmoneygive.Text}";
             
-            p.PrintPage += delegate (object sender1, PrintPageEventArgs e1)
+            docToPrint.PrintPage += delegate (object sender1, PrintPageEventArgs e1)
             {
-                e1.Graphics.DrawString(header, new Font("Times New Roman", 24), new SolidBrush(Color.Black), new RectangleF(0, 0, p.DefaultPageSettings.PrintableArea.Width, p.DefaultPageSettings.PrintableArea.Height));
-                e1.Graphics.DrawString(stringToPrint, new Font("Times New Roman", 12), new SolidBrush(Color.Black), new RectangleF(0, 0, p.DefaultPageSettings.PrintableArea.Width, p.DefaultPageSettings.PrintableArea.Height));
+                e1.Graphics.DrawString(header, new Font("Times New Roman", 24), new SolidBrush(Color.Black), new RectangleF(0, 0, docToPrint.DefaultPageSettings.PrintableArea.Width, docToPrint.DefaultPageSettings.PrintableArea.Height));
+                e1.Graphics.DrawString(stringToPrint, new Font("Times New Roman", 12), new SolidBrush(Color.Black), new RectangleF(0, 50, docToPrint.DefaultPageSettings.PrintableArea.Width, docToPrint.DefaultPageSettings.PrintableArea.Height));
             };
-            try
+
+            PrintDialog printDialog = new PrintDialog();
+            printDialog.AllowSomePages = true;
+            printDialog.ShowHelp = true;
+            printDialog.Document = docToPrint;
+
+            DialogResult result = printDialog.ShowDialog();
+
+            if (result == DialogResult.OK)
             {
-                p.Print();
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Exception Occured While Printing", ex);
+                docToPrint.Print();
             }
         }
 
