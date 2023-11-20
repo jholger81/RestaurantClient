@@ -188,7 +188,7 @@ namespace RestaurantClient
         {
             PrintDocument p = new PrintDocument();
             string stringToPrint = "";
-            stringToPrint += "Rechnung zum Goldenen Lindemann\r\n\r\n";
+            string header = "Rechnung zum Goldenen Lindemann\r\n\r\n";
             stringToPrint += $"Datum: {DateTime.Now.ToString()}\r\n";
             stringToPrint += $"Tisch: {intselectedTable}\r\n";
 
@@ -197,11 +197,14 @@ namespace RestaurantClient
             {
                 stringToPrint += $"{item.ToString()}\r\n";
             }
+
+            stringToPrint += $"\r\n{inttopay}";
+            stringToPrint += $"\r\n{rtbmoneygive.Text}";
             
             p.PrintPage += delegate (object sender1, PrintPageEventArgs e1)
             {
-                e1.Graphics.DrawString(s, new Font("Times New Roman", 12), new SolidBrush(Color.Black), new RectangleF(0, 0, p.DefaultPageSettings.PrintableArea.Width, p.DefaultPageSettings.PrintableArea.Height));
-
+                e1.Graphics.DrawString(header, new Font("Times New Roman", 24), new SolidBrush(Color.Black), new RectangleF(0, 0, p.DefaultPageSettings.PrintableArea.Width, p.DefaultPageSettings.PrintableArea.Height));
+                e1.Graphics.DrawString(stringToPrint, new Font("Times New Roman", 12), new SolidBrush(Color.Black), new RectangleF(0, 0, p.DefaultPageSettings.PrintableArea.Width, p.DefaultPageSettings.PrintableArea.Height));
             };
             try
             {
