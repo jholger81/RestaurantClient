@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Restaurant;
 using Restaurant.Models;
+using System.Drawing.Printing;
 
 namespace RestaurantClient
 {
@@ -95,13 +96,9 @@ namespace RestaurantClient
         private async void payMenu_Load(object sender, EventArgs e)
         {
             ApiClient apiClient = new ApiClient();
-            //string apiUrl = "https://localhost:1337/tables";
             string apiUrl = "https://localhost:1337/orders/" + intselectedTable.ToString() + "/open";
-            //string result = ...
             List<Bestellung> bestellungen = await apiClient.GetDataFromApiGeneric<List<Bestellung>>(apiUrl);
             Console.WriteLine("");
-
-            
 
             if (bestellungen != null)
             {
@@ -110,7 +107,6 @@ namespace RestaurantClient
                     foreach (var pos in bestellung.Positionen)
                     {
                         clbnotpayed.Items.Add(pos.ID_Artikel + " - " + pos.Artikel.Name);
-
                     }
                 }
             }
@@ -130,11 +126,7 @@ namespace RestaurantClient
                     }
                 }
             }
-
-            
             clbnotpayed.SelectedIndex = 0;
-
-
         }
 
         private async void clbnotpayed_ItemCheck(object sender, ItemCheckEventArgs e)
@@ -190,6 +182,40 @@ namespace RestaurantClient
                 }
             }
            
+        }
+
+        private void btnprint_Click(object sender, EventArgs e)
+        {
+            PrintDocument p = new PrintDocument();
+            string stringToPrint = "";
+            stringToPrint += "Rechnung zum Goldenen Lindemann\r\n\r\n";
+            stringToPrint += $"Datum: {DateTime.Now.ToString()}\r\n";
+            stringToPrint += $"Tisch: {intselectedTable}\r\n";
+
+            var selectedItems = clbnotpayed.CheckedItems;
+            foreach (var item in selectedItems)
+            {
+                stringToPrint += $"{item.ToString()}\r\n";
+            }
+            
+            p.PrintPage += delegate (object sender1, PrintPageEventArgs e1)
+            {
+                e1.Graphics.DrawString(s, new Font("Times New Roman", 12), new SolidBrush(Color.Black), new RectangleF(0, 0, p.DefaultPageSettings.PrintableArea.Width, p.DefaultPageSettings.PrintableArea.Height));
+
+            };
+            try
+            {
+                p.Print();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Exception Occured While Printing", ex);
+            }
+        }
+
+    private void btnpay_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
