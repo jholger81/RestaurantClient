@@ -44,6 +44,7 @@
             this.btnback = new System.Windows.Forms.Button();
             this.lbltable = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.btnprint = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -51,44 +52,50 @@
             // 
             this.clbnotpayed.CheckOnClick = true;
             this.clbnotpayed.FormattingEnabled = true;
-            this.clbnotpayed.Location = new System.Drawing.Point(12, 95);
+            this.clbnotpayed.Location = new System.Drawing.Point(16, 117);
+            this.clbnotpayed.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.clbnotpayed.Name = "clbnotpayed";
-            this.clbnotpayed.Size = new System.Drawing.Size(321, 304);
+            this.clbnotpayed.Size = new System.Drawing.Size(427, 361);
             this.clbnotpayed.TabIndex = 0;
             this.clbnotpayed.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.clbnotpayed_ItemCheck);
             // 
             // lbpayed
             // 
             this.lbpayed.FormattingEnabled = true;
-            this.lbpayed.Location = new System.Drawing.Point(358, 95);
+            this.lbpayed.ItemHeight = 16;
+            this.lbpayed.Location = new System.Drawing.Point(477, 117);
+            this.lbpayed.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.lbpayed.Name = "lbpayed";
-            this.lbpayed.Size = new System.Drawing.Size(239, 238);
+            this.lbpayed.Size = new System.Drawing.Size(317, 292);
             this.lbpayed.TabIndex = 2;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 76);
+            this.label1.Location = new System.Drawing.Point(16, 94);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(36, 13);
+            this.label1.Size = new System.Drawing.Size(41, 16);
             this.label1.TabIndex = 3;
             this.label1.Text = "Offen:";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(355, 76);
+            this.label2.Location = new System.Drawing.Point(473, 94);
+            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(45, 13);
+            this.label2.Size = new System.Drawing.Size(54, 16);
             this.label2.TabIndex = 4;
             this.label2.Text = "Bezahlt:";
             // 
             // cbxpayrest
             // 
             this.cbxpayrest.AutoSize = true;
-            this.cbxpayrest.Location = new System.Drawing.Point(358, 340);
+            this.cbxpayrest.Location = new System.Drawing.Point(477, 418);
+            this.cbxpayrest.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.cbxpayrest.Name = "cbxpayrest";
-            this.cbxpayrest.Size = new System.Drawing.Size(94, 17);
+            this.cbxpayrest.Size = new System.Drawing.Size(115, 20);
             this.cbxpayrest.TabIndex = 5;
             this.cbxpayrest.Text = "Rest bezahlen";
             this.cbxpayrest.UseVisualStyleBackColor = true;
@@ -97,9 +104,10 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(12, 430);
+            this.label3.Location = new System.Drawing.Point(16, 529);
+            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(76, 13);
+            this.label3.Size = new System.Drawing.Size(93, 16);
             this.label3.TabIndex = 6;
             this.label3.Text = "zu begleichen:";
             // 
@@ -108,10 +116,11 @@
             this.rtbcost.BackColor = System.Drawing.SystemColors.Window;
             this.rtbcost.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.rtbcost.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rtbcost.Location = new System.Drawing.Point(15, 447);
+            this.rtbcost.Location = new System.Drawing.Point(20, 550);
+            this.rtbcost.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.rtbcost.Name = "rtbcost";
             this.rtbcost.ReadOnly = true;
-            this.rtbcost.Size = new System.Drawing.Size(150, 39);
+            this.rtbcost.Size = new System.Drawing.Size(200, 48);
             this.rtbcost.TabIndex = 7;
             this.rtbcost.Text = "0000,00";
             // 
@@ -120,11 +129,12 @@
             this.rtbmoneygive.BackColor = System.Drawing.SystemColors.Window;
             this.rtbmoneygive.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.rtbmoneygive.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rtbmoneygive.Location = new System.Drawing.Point(201, 447);
+            this.rtbmoneygive.Location = new System.Drawing.Point(268, 550);
+            this.rtbmoneygive.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.rtbmoneygive.MaxLength = 7;
             this.rtbmoneygive.Multiline = false;
             this.rtbmoneygive.Name = "rtbmoneygive";
-            this.rtbmoneygive.Size = new System.Drawing.Size(150, 39);
+            this.rtbmoneygive.Size = new System.Drawing.Size(200, 48);
             this.rtbmoneygive.TabIndex = 9;
             this.rtbmoneygive.Text = "";
             this.rtbmoneygive.TextChanged += new System.EventHandler(this.rtbmoneygive_TextChanged);
@@ -134,9 +144,10 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(198, 430);
+            this.label4.Location = new System.Drawing.Point(264, 529);
+            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(66, 13);
+            this.label4.Size = new System.Drawing.Size(78, 16);
             this.label4.TabIndex = 8;
             this.label4.Text = "Kunde zahlt:";
             // 
@@ -145,38 +156,43 @@
             this.rtbTips.BackColor = System.Drawing.SystemColors.Window;
             this.rtbTips.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.rtbTips.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rtbTips.Location = new System.Drawing.Point(201, 505);
+            this.rtbTips.Location = new System.Drawing.Point(268, 622);
+            this.rtbTips.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.rtbTips.Name = "rtbTips";
             this.rtbTips.ReadOnly = true;
-            this.rtbTips.Size = new System.Drawing.Size(150, 39);
+            this.rtbTips.Size = new System.Drawing.Size(200, 48);
             this.rtbTips.TabIndex = 11;
             this.rtbTips.Text = "0000,00";
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(198, 488);
+            this.label5.Location = new System.Drawing.Point(264, 601);
+            this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(54, 13);
+            this.label5.Size = new System.Drawing.Size(67, 16);
             this.label5.TabIndex = 10;
             this.label5.Text = "Trinkgeld:";
             // 
             // btnpay
             // 
             this.btnpay.BackColor = System.Drawing.Color.DarkSeaGreen;
-            this.btnpay.Location = new System.Drawing.Point(392, 430);
+            this.btnpay.Location = new System.Drawing.Point(547, 595);
+            this.btnpay.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnpay.Name = "btnpay";
-            this.btnpay.Size = new System.Drawing.Size(185, 114);
+            this.btnpay.Size = new System.Drawing.Size(247, 75);
             this.btnpay.TabIndex = 12;
             this.btnpay.Text = "Begleichen";
             this.btnpay.UseVisualStyleBackColor = false;
+            this.btnpay.Click += new System.EventHandler(this.btnpay_Click);
             // 
             // btnback
             // 
             this.btnback.BackColor = System.Drawing.Color.IndianRed;
-            this.btnback.Location = new System.Drawing.Point(12, 12);
+            this.btnback.Location = new System.Drawing.Point(16, 15);
+            this.btnback.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnback.Name = "btnback";
-            this.btnback.Size = new System.Drawing.Size(153, 61);
+            this.btnback.Size = new System.Drawing.Size(204, 75);
             this.btnback.TabIndex = 13;
             this.btnback.Text = "Abbrechen";
             this.btnback.UseVisualStyleBackColor = false;
@@ -185,27 +201,42 @@
             // lbltable
             // 
             this.lbltable.AutoSize = true;
-            this.lbltable.Location = new System.Drawing.Point(223, 22);
+            this.lbltable.Location = new System.Drawing.Point(297, 27);
+            this.lbltable.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lbltable.Name = "lbltable";
-            this.lbltable.Size = new System.Drawing.Size(118, 13);
+            this.lbltable.Size = new System.Drawing.Size(144, 16);
             this.lbltable.TabIndex = 14;
             this.lbltable.Text = "Ausgewählter Tisch: 00";
             // 
             // pictureBox1
             // 
             this.pictureBox1.Image = global::RestaurantClient.Properties.Resources.Gasthoficon;
-            this.pictureBox1.Location = new System.Drawing.Point(519, 4);
+            this.pictureBox1.Location = new System.Drawing.Point(692, 5);
+            this.pictureBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(78, 85);
+            this.pictureBox1.Size = new System.Drawing.Size(104, 105);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox1.TabIndex = 15;
             this.pictureBox1.TabStop = false;
             // 
+            // btnprint
+            // 
+            this.btnprint.BackColor = System.Drawing.Color.Beige;
+            this.btnprint.Location = new System.Drawing.Point(547, 512);
+            this.btnprint.Margin = new System.Windows.Forms.Padding(4);
+            this.btnprint.Name = "btnprint";
+            this.btnprint.Size = new System.Drawing.Size(247, 75);
+            this.btnprint.TabIndex = 16;
+            this.btnprint.Text = "Beleg drucken";
+            this.btnprint.UseVisualStyleBackColor = false;
+            this.btnprint.Click += new System.EventHandler(this.btnprint_Click);
+            // 
             // payMenu
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(609, 556);
+            this.ClientSize = new System.Drawing.Size(812, 684);
+            this.Controls.Add(this.btnprint);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.lbltable);
             this.Controls.Add(this.btnback);
@@ -222,6 +253,7 @@
             this.Controls.Add(this.lbpayed);
             this.Controls.Add(this.clbnotpayed);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "payMenu";
             this.Text = "Abrechnung";
             this.Load += new System.EventHandler(this.payMenu_Load);
@@ -248,5 +280,6 @@
         private System.Windows.Forms.Button btnback;
         private System.Windows.Forms.Label lbltable;
         private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.Button btnprint;
     }
 }
