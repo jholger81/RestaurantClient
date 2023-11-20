@@ -64,14 +64,22 @@ namespace RestaurantClient
 
         }
 
-        private void tischwechselnToolStripMenuItem_Click(object sender, EventArgs e)
+        private async void tischwechselnToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            int dummy = intselectedTable;
-            Button ctn = (Button)this.Controls.Find("btnTisch" + Convert.ToString(dummy), true)[0];
-            int changetable = Convert.ToInt32(Interaction.InputBox("Zu welchem Tisch wird gewechselt?", "Tischwechsel", ""));
+            int fromTableId = intselectedTable;
+            Tisch fromTable = new Tisch() { ID_Tisch = fromTableId };
+            Button ctn = (Button)this.Controls.Find("btnTisch" + Convert.ToString(fromTableId), true)[0];
+            int toTableId = Convert.ToInt32(Interaction.InputBox("Zu welchem Tisch wird gewechselt?", "Tischwechsel", ""));
+            Tisch toTable = new Tisch() { ID_Tisch = toTableId };
             ctn.BackColor = Color.DarkSeaGreen;
-            ctn = (Button)this.Controls.Find("btnTisch" + Convert.ToString(changetable), true)[0];
+            ctn = (Button)this.Controls.Find("btnTisch" + Convert.ToString(toTableId), true)[0];
             ctn.BackColor = Color.Khaki;
+
+            ApiClient apiClient = new ApiClient();
+
+            string apiUrl = "https://localhost:1337/tables/switch";
+            await apiClient.PutDataToApiGeneric<Tisch>(apiUrl, fromTable, toTable);
+
             //TODOo Farbwechsel
 
 
@@ -163,32 +171,37 @@ namespace RestaurantClient
             string apiUrl = "https://localhost:1337/tables";
             //string result = ...
             List<Tisch> tischliste = await apiClient.GetDataFromApiGeneric<List<Tisch>>(apiUrl);
-            Console.WriteLine("");
-            foreach (var tisch in tischliste)
-            {
-                if (tisch.ID_Kellner != kellnerID)
-                {
-                    Button ctn = (Button)this.Controls.Find("btnTisch" + Convert.ToString(tisch.ID_Tisch), true)[0];
-                    ctn.BackColor = Color.Salmon;
-                }
-                
 
+            if (tischliste == null)
+            {
+                MessageBox.Show("Keine Verbindung zum Server, beende das Programm", "Fehler", MessageBoxButtons.OK);
+                this.Close();
+                Application.Exit();
             }
-
-
-
-            apiClient = new ApiClient();
-            //string apiUrl = "https://localhost:1337/tables";
-            apiUrl = "https://localhost:1337/tables/open";
-            //string result = ...
-            tischliste = await apiClient.GetDataFromApiGeneric<List<Tisch>>(apiUrl);
-            Console.WriteLine("");
-            foreach (var tisch in tischliste)
+            else
             {
-                if (tisch.ID_Kellner == kellnerID)
+                foreach (var tisch in tischliste)
                 {
-                    Button ctn = (Button)this.Controls.Find("btnTisch" + Convert.ToString(tisch.ID_Tisch), true)[0];
-                    ctn.BackColor = Color.Khaki;
+                    if (tisch.ID_Kellner != kellnerID)
+                    {
+                        Button ctn = (Button)this.Controls.Find("btnTisch" + Convert.ToString(tisch.ID_Tisch), true)[0];
+                        ctn.BackColor = Color.Salmon;
+                    }
+                }
+
+                apiClient = new ApiClient();
+                //string apiUrl = "https://localhost:1337/tables";
+                apiUrl = "https://localhost:1337/tables/open";
+                //string result = ...
+                tischliste = await apiClient.GetDataFromApiGeneric<List<Tisch>>(apiUrl);
+                Console.WriteLine("");
+                foreach (var tisch in tischliste)
+                {
+                    if (tisch.ID_Kellner == kellnerID)
+                    {
+                        Button ctn = (Button)this.Controls.Find("btnTisch" + Convert.ToString(tisch.ID_Tisch), true)[0];
+                        ctn.BackColor = Color.Khaki;
+                    }
                 }
             }
         }
@@ -201,15 +214,67 @@ namespace RestaurantClient
             report.Show();
         }
 
+        private async Task TextBoxWithReturn(string titel = "Login")
+        {
+            TextBox loginNameTextBox, passwordTextBox;
+            Button okayButton;
+            //int kellnerID = 0;
+
+            Form inputForm = new Form();
+            inputForm.Size = new Size(300, 150);
+            inputForm.Text = titel;
+            inputForm.FormBorderStyle = FormBorderStyle.FixedSingle;
+
+            loginNameTextBox = new TextBox();
+            loginNameTextBox.Location = new Point(10, 10);
+            loginNameTextBox.Size = new Size(260, 20);
+            loginNameTextBox.Text = "Login Name";
+            inputForm.Controls.Add(loginNameTextBox);
+
+            passwordTextBox = new TextBox();
+            passwordTextBox.Location = new Point(10, 40);
+            passwordTextBox.Size = new Size(260, 20);
+            passwordTextBox.Text = "Passwort";
+            inputForm.Controls.Add(passwordTextBox);
+
+            okayButton = new Button();
+            okayButton.Location = new Point(10, 70);
+            okayButton.Size = new Size(75, 23);
+            okayButton.Text = "OK";
+            okayButton.Click += async (sender, EventArgs) =>
+            {
+                await OkayButton_Click(sender, EventArgs, loginNameTextBox.Text, passwordTextBox.Text);
+                inputForm.Close();
+            };
+            inputForm.Controls.Add(okayButton);
+            inputForm.ShowDialog();
+        }
+
+        private async Task OkayButton_Click(object sender, EventArgs e, string loginName, string passwort)
+        {
+            ApiClient apiClient = new ApiClient();
+            string apiUrl = "https://localhost:1337/waiter/login";
+            Kellner loginData = new Kellner
+            {
+                LoginName = loginName,
+                Passwort = passwort
+            };
+            var response = await apiClient.GetDataFromApiGeneric<Kellner>(apiUrl, loginData);
+
+            kellnerID = response?.ID_Kellner ?? 0;
+        }
+
         private async void kellnerEinloggenToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            kellnerID = Convert.ToInt32(Interaction.InputBox("Welche Kellner ID loggt sich ein?", "Kellner Login", ""));
-
+            await TextBoxWithReturn();
+            if (kellnerID == 0)
+            {
+                MessageBox.Show("Kein Kellner mit den angegebenen Login-Daten gefunden", "Login-Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
 
             ApiClient apiClient = new ApiClient();
-            //string apiUrl = "https://localhost:1337/tables";
             string apiUrl = "https://localhost:1337/tables";
-            //string result = ...
             List<Tisch> tischliste = await apiClient.GetDataFromApiGeneric<List<Tisch>>(apiUrl);
             Console.WriteLine("");
             foreach (var tisch in tischliste)
@@ -226,13 +291,7 @@ namespace RestaurantClient
                 }
             }
 
-
-           
-
-            
-            //string apiUrl = "https://localhost:1337/tables";
             apiUrl = "https://localhost:1337/tables/open";
-            //string result = ...
             tischliste = await apiClient.GetDataFromApiGeneric<List<Tisch>>(apiUrl);
             Console.WriteLine("");
             foreach (var tisch in tischliste)

@@ -92,7 +92,7 @@ namespace RestaurantClient
             
 
             ApiClient apiClient = new ApiClient();
-            HttpClient httpClient = new HttpClient();
+            //HttpClient httpClient = new HttpClient();
             string apiUrl = "https://localhost:1337/orders/new";
 
             Bestellung newOrder = new Bestellung
