@@ -164,75 +164,16 @@ namespace RestaurantClient
             }
         }
 
-        private async void btnsaveclose_Click(object sender, EventArgs e)
-        {
-
-
-            ApiClient apiClient = new ApiClient();
-            HttpClient httpClient = new HttpClient();
-            //string apiUrl = "https://localhost:1337/tables";
-            string apiUrl = "https://localhost:1337/orders/new";
-
-
-            Bestellung newOrder = new Bestellung
-            {
-                Datum = DateTime.Now,
-                ID_Tisch = intselectedTable, // Beispielwert
-                Positionen = new List<Bestellposition>
-                {
-                    //new Bestellposition
-                    //{
-                    //    ID_Artikel = Int32.Parse(parts[0]), // Beispielwert
-                    //    Extras = parts[2] + " " + parts[3],
-                    //    Geliefert = 0
-                    //},
-                    // Fügen Sie weitere Bestellpositionen hinzu
-                }
-
-
-
-            };
-
-            foreach (var item in ltbPlanned.Items)
-            {
-                string[] parts = item.ToString().Split('-');
-                string extradump = "";
-
-
-                if (parts.Count() == 4) { extradump = parts[2] + " " + parts[3]; }
-                // Erstellen einer neuen Bestellposition und Hinzufügen zur Liste in newOrder
-                Bestellposition position = new Bestellposition
-                {
-                    ID_Artikel = Int32.Parse(parts[0]), // Beispielwert
-                    Extras = extradump,
-                    Geliefert = 0
-                };
-
-                newOrder.Positionen.Add(position);
-            }
-
-
-
-
-            string jsonOrder = System.Text.Json.JsonSerializer.Serialize(newOrder);
-            var request = new HttpRequestMessage(HttpMethod.Post, apiUrl);
-            request.Content = new StringContent(jsonOrder, Encoding.UTF8, "application/json");
-            HttpResponseMessage response = await httpClient.SendAsync(request);
-            if (response.IsSuccessStatusCode)
-            {
-                MessageBox.Show("Die Bestellung wurde erfolgreich an die API gesendet.");
-            }
-            else
-            {
-                MessageBox.Show($"Fehler beim Senden der Bestellung. HTTP-Statuscode: {response.StatusCode}");
-            }
-
-            this.Close();
-        }
+     
 
         private void btnreset_Click(object sender, EventArgs e)
         {
             ltbPlanned.Items.Clear();
+        }
+
+        private void btnremovearticle_Click(object sender, EventArgs e)
+        {
+            ltbPlanned.Items.Remove(ltbPlanned.SelectedItem);
         }
     }
 }
