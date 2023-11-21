@@ -11,6 +11,7 @@ using System.Windows.Forms;
 using Restaurant;
 using Restaurant.Models;
 using System.Drawing.Printing;
+using System.Collections;
 
 namespace RestaurantClient
 {
@@ -28,7 +29,7 @@ namespace RestaurantClient
             lbltable.Text = "Ausgewählter Tisch: " + intselectedTable;
             inttopay = 0;
             rtbcost.Text = inttopay.ToString();
-            
+
         }
 
         private void btnback_Click(object sender, EventArgs e)
@@ -38,14 +39,14 @@ namespace RestaurantClient
 
         private void rtbmoneygive_TextChanged(object sender, EventArgs e)
         {
-            
+
         }
 
         private void rtbmoneygive_KeyPress(object sender, KeyPressEventArgs e)
         {
-            
-          
-            
+
+
+
         }
 
         private void rtbmoneygive_KeyUp(object sender, KeyEventArgs e)
@@ -90,7 +91,7 @@ namespace RestaurantClient
                     rtbTips.Text = Convert.ToString(tipsInEuro);
                 }
             }
-            
+
         }
 
         private async void payMenu_Load(object sender, EventArgs e)
@@ -131,7 +132,7 @@ namespace RestaurantClient
 
         private async void clbnotpayed_ItemCheck(object sender, ItemCheckEventArgs e)
         {
-            
+
             ApiClient apiClient = new ApiClient();
             //string apiUrl = "https://localhost:1337/tables";
             if (clbnotpayed.SelectedItem != null)
@@ -157,7 +158,7 @@ namespace RestaurantClient
                 }
             }
         }
-            
+
 
         private void cbxpayrest_CheckedChanged(object sender, EventArgs e)
         {
@@ -169,7 +170,7 @@ namespace RestaurantClient
                     {
                         clbnotpayed.SetItemChecked(i, true);
                     }
-                    
+
                 }
 
             }
@@ -178,10 +179,10 @@ namespace RestaurantClient
                 for (int i = 0; i < clbnotpayed.Items.Count; i++)
                 {
                     clbnotpayed.SetItemChecked(i, false);
-                   
+
                 }
             }
-           
+
         }
 
         private void btnprint_Click(object sender, EventArgs e)
@@ -200,7 +201,7 @@ namespace RestaurantClient
 
             stringToPrint += $"\r\nZu begleichender Betrag: {inttopay}";
             stringToPrint += $"\r\nBezahlte Betrag:{rtbmoneygive.Text}";
-            
+
             docToPrint.PrintPage += delegate (object sender1, PrintPageEventArgs e1)
             {
                 e1.Graphics.DrawString(header, new Font("Times New Roman", 24), new SolidBrush(Color.Black), new RectangleF(0, 0, docToPrint.DefaultPageSettings.PrintableArea.Width, docToPrint.DefaultPageSettings.PrintableArea.Height));
@@ -220,9 +221,18 @@ namespace RestaurantClient
             }
         }
 
-    private void btnpay_Click(object sender, EventArgs e)
+        private void btnpay_Click(object sender, EventArgs e)
         {
+            
+            ArrayList list = new ArrayList();
+            foreach (object item in clbnotpayed.CheckedItems)
+            {
+                list.Add(item.ToString());
+            }
 
+            string dummy = "";
+            foreach (string item in list) { dummy += item + "\n"; }
+            MessageBox.Show(dummy);
         }
     }
 }

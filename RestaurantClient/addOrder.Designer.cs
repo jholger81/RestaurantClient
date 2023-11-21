@@ -32,10 +32,8 @@
             this.ltbArticle = new System.Windows.Forms.ListBox();
             this.btnGetraenke = new System.Windows.Forms.Button();
             this.btnSpeisen = new System.Windows.Forms.Button();
-            this.rtbextras = new System.Windows.Forms.RichTextBox();
-            this.label1 = new System.Windows.Forms.Label();
             this.btnreset = new System.Windows.Forms.Button();
-            this.btnsaveclose = new System.Windows.Forms.Button();
+            this.btnremovearticle = new System.Windows.Forms.Button();
             this.btnsavenext = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.btnback = new System.Windows.Forms.Button();
@@ -50,7 +48,7 @@
             this.ltbArticle.FormattingEnabled = true;
             this.ltbArticle.Location = new System.Drawing.Point(11, 143);
             this.ltbArticle.Name = "ltbArticle";
-            this.ltbArticle.Size = new System.Drawing.Size(283, 225);
+            this.ltbArticle.Size = new System.Drawing.Size(283, 303);
             this.ltbArticle.TabIndex = 0;
             this.ltbArticle.DoubleClick += new System.EventHandler(this.ltbArticle_DoubleClick);
             // 
@@ -74,49 +72,32 @@
             this.btnSpeisen.UseVisualStyleBackColor = true;
             this.btnSpeisen.Click += new System.EventHandler(this.btnSpeisen_Click);
             // 
-            // rtbextras
-            // 
-            this.rtbextras.Location = new System.Drawing.Point(11, 387);
-            this.rtbextras.Name = "rtbextras";
-            this.rtbextras.Size = new System.Drawing.Size(375, 110);
-            this.rtbextras.TabIndex = 4;
-            this.rtbextras.Text = "";
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(11, 371);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(83, 13);
-            this.label1.TabIndex = 5;
-            this.label1.Text = "Extra Wünsche:";
-            // 
             // btnreset
             // 
             this.btnreset.BackColor = System.Drawing.Color.IndianRed;
-            this.btnreset.Location = new System.Drawing.Point(11, 513);
+            this.btnreset.Location = new System.Drawing.Point(465, 402);
             this.btnreset.Name = "btnreset";
-            this.btnreset.Size = new System.Drawing.Size(175, 90);
+            this.btnreset.Size = new System.Drawing.Size(132, 65);
             this.btnreset.TabIndex = 6;
-            this.btnreset.Text = "Löschen";
+            this.btnreset.Text = "Bestellung leeren";
             this.btnreset.UseVisualStyleBackColor = false;
             this.btnreset.Click += new System.EventHandler(this.btnreset_Click);
             // 
-            // btnsaveclose
+            // btnremovearticle
             // 
-            this.btnsaveclose.BackColor = System.Drawing.Color.Khaki;
-            this.btnsaveclose.Location = new System.Drawing.Point(216, 513);
-            this.btnsaveclose.Name = "btnsaveclose";
-            this.btnsaveclose.Size = new System.Drawing.Size(175, 90);
-            this.btnsaveclose.TabIndex = 7;
-            this.btnsaveclose.Text = "Speichern\r\nund\r\nSchließen\r\n";
-            this.btnsaveclose.UseVisualStyleBackColor = false;
-            this.btnsaveclose.Click += new System.EventHandler(this.btnsaveclose_Click);
+            this.btnremovearticle.BackColor = System.Drawing.Color.Khaki;
+            this.btnremovearticle.Location = new System.Drawing.Point(314, 402);
+            this.btnremovearticle.Name = "btnremovearticle";
+            this.btnremovearticle.Size = new System.Drawing.Size(132, 65);
+            this.btnremovearticle.TabIndex = 7;
+            this.btnremovearticle.Text = "Artikel entfernen";
+            this.btnremovearticle.UseVisualStyleBackColor = false;
+            this.btnremovearticle.Click += new System.EventHandler(this.btnremovearticle_Click);
             // 
             // btnsavenext
             // 
             this.btnsavenext.BackColor = System.Drawing.Color.DarkSeaGreen;
-            this.btnsavenext.Location = new System.Drawing.Point(421, 513);
+            this.btnsavenext.Location = new System.Drawing.Point(211, 513);
             this.btnsavenext.Name = "btnsavenext";
             this.btnsavenext.Size = new System.Drawing.Size(175, 90);
             this.btnsavenext.TabIndex = 8;
@@ -169,7 +150,7 @@
             this.ltbPlanned.FormattingEnabled = true;
             this.ltbPlanned.Location = new System.Drawing.Point(314, 145);
             this.ltbPlanned.Name = "ltbPlanned";
-            this.ltbPlanned.Size = new System.Drawing.Size(283, 225);
+            this.ltbPlanned.Size = new System.Drawing.Size(283, 251);
             this.ltbPlanned.TabIndex = 17;
             this.ltbPlanned.DoubleClick += new System.EventHandler(this.ltbPlanned_DoubleClick);
             // 
@@ -184,10 +165,8 @@
             this.Controls.Add(this.btnback);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.btnsavenext);
-            this.Controls.Add(this.btnsaveclose);
+            this.Controls.Add(this.btnremovearticle);
             this.Controls.Add(this.btnreset);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.rtbextras);
             this.Controls.Add(this.btnSpeisen);
             this.Controls.Add(this.btnGetraenke);
             this.Controls.Add(this.ltbArticle);
@@ -206,10 +185,8 @@
         private System.Windows.Forms.ListBox ltbArticle;
         private System.Windows.Forms.Button btnGetraenke;
         private System.Windows.Forms.Button btnSpeisen;
-        private System.Windows.Forms.RichTextBox rtbextras;
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button btnreset;
-        private System.Windows.Forms.Button btnsaveclose;
+        private System.Windows.Forms.Button btnremovearticle;
         private System.Windows.Forms.Button btnsavenext;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Button btnback;
