@@ -308,5 +308,11 @@ namespace RestaurantClient
         {
             // todoo switch/{id_Kellner}/{id_Tisch
         }
+
+        private void kücheToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var kuechenAnzeigeFenster = new kitchenWindow();
+            kuechenAnzeigeFenster.Show();
+        }
     }
 }

@@ -131,13 +131,10 @@ namespace RestaurantClient
 
         private async void clbnotpayed_ItemCheck(object sender, ItemCheckEventArgs e)
         {
-            
             ApiClient apiClient = new ApiClient();
-            //string apiUrl = "https://localhost:1337/tables";
             if (clbnotpayed.SelectedItem != null)
             {
                 string apiUrl = "https://localhost:1337/articles/id/" + clbnotpayed.SelectedItem.ToString().Split('-')[0];
-                //string result = ...
                 Artikel artikel = await apiClient.GetDataFromApiGeneric<Artikel>(apiUrl);
                 Console.WriteLine("");
                 if (artikel != null)
@@ -220,7 +217,7 @@ namespace RestaurantClient
             }
         }
 
-    private void btnpay_Click(object sender, EventArgs e)
+        private void btnpay_Click(object sender, EventArgs e)
         {
 
         }
