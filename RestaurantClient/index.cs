@@ -69,16 +69,25 @@ namespace RestaurantClient
             int fromTableId = intselectedTable;
             Tisch fromTable = new Tisch() { ID_Tisch = fromTableId };
             Button ctn = (Button)this.Controls.Find("btnTisch" + Convert.ToString(fromTableId), true)[0];
-            int toTableId = Convert.ToInt32(Interaction.InputBox("Zu welchem Tisch wird gewechselt?", "Tischwechsel", ""));
-            Tisch toTable = new Tisch() { ID_Tisch = toTableId };
-            ctn.BackColor = Color.DarkSeaGreen;
-            ctn = (Button)this.Controls.Find("btnTisch" + Convert.ToString(toTableId), true)[0];
-            ctn.BackColor = Color.Khaki;
+            string dummy = Interaction.InputBox("Zu welchem Tisch wird gewechselt?", "Tischwechsel", "");
+            if (dummy.Length >0)
+            {
+                int toTableId = Int32.Parse(dummy);
+                MessageBox.Show(toTableId.ToString());
+                Tisch toTable = new Tisch() { ID_Tisch = toTableId };
+                ctn.BackColor = Color.DarkSeaGreen;
+                ctn = (Button)this.Controls.Find("btnTisch" + Convert.ToString(toTableId), true)[0];
+                ctn.BackColor = Color.Khaki;
 
-            ApiClient apiClient = new ApiClient();
+                ApiClient apiClient = new ApiClient();
 
-            string apiUrl = "https://localhost:1337/tables/switch";
-            await apiClient.PutDataToApiGeneric<Tisch>(apiUrl, fromTable, toTable);
+                string apiUrl = "https://localhost:1337/tables/switch";
+                await apiClient.PutDataToApiGeneric<Tisch>(apiUrl, fromTable, toTable);
+            }
+           
+   
+           
+            
 
             //TODOo Farbwechsel
 
@@ -97,6 +106,7 @@ namespace RestaurantClient
             //string result = ...
             List<Bestellung> bestellungen = await apiClient.GetDataFromApiGeneric<List<Bestellung>>(apiUrl);
             Console.WriteLine("");
+            
             if (bestellungen != null)
             {
                 foreach (var bestellung in bestellungen)
@@ -304,9 +314,16 @@ namespace RestaurantClient
             }
         }
 
-        private void kellnerZuweisenToolStripMenuItem_Click(object sender, EventArgs e)
+        private async void kellnerZuweisenToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            // todoo switch/{id_Kellner}/{id_Tisch
-        }
+            //todoo switch/{id_Kellner}/{id_Tisch
+           ApiClient apiClient = new ApiClient();
+            string apiUrl = "https://localhost:1337/waiter/switch/" + kellnerID + "/" + intselectedTable;
+
+            await apiClient.GetDataFromApiGeneric<string>(apiUrl);
+
+
+
+    }
     }
 }
