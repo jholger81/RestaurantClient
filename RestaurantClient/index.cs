@@ -316,14 +316,18 @@ namespace RestaurantClient
 
         private async void kellnerZuweisenToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            // todoo switch/{id_Kellner}/{id_Tisch}
             //todoo switch/{id_Kellner}/{id_Tisch
            ApiClient apiClient = new ApiClient();
             string apiUrl = "https://localhost:1337/waiter/switch/" + kellnerID + "/" + intselectedTable;
 
             await apiClient.GetDataFromApiGeneric<string>(apiUrl);
+        }
 
-
-
-    }
+        private void kücheToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var kuechenAnzeigeFenster = new kitchenWindow();
+            kuechenAnzeigeFenster.Show();
+        }
     }
 }
