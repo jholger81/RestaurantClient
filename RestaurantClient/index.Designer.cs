@@ -36,7 +36,6 @@
             this.kellnerEinloggenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ltbshoworderd = new System.Windows.Forms.ListBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.btnTisch25 = new System.Windows.Forms.Button();
             this.btnTisch24 = new System.Windows.Forms.Button();
@@ -130,15 +129,6 @@
             this.label1.Size = new System.Drawing.Size(79, 13);
             this.label1.TabIndex = 2;
             this.label1.Text = "Bestellte Artikel";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(40, 58);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(131, 13);
-            this.label2.TabIndex = 3;
-            this.label2.Text = "zugewiesener Kellner: 000";
             // 
             // groupBox1
             // 
@@ -504,7 +494,6 @@
             this.Controls.Add(this.button1);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.ltbshoworderd);
             this.Controls.Add(this.menuStrip1);
@@ -528,7 +517,6 @@
         private System.Windows.Forms.ToolStripMenuItem tischwechselnToolStripMenuItem;
         private System.Windows.Forms.ListBox ltbshoworderd;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Button btnTisch10;
         private System.Windows.Forms.Button btnTisch9;

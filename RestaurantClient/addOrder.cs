@@ -89,48 +89,56 @@ namespace RestaurantClient
 
         private async void btnsavenext_Click(object sender, EventArgs e)
         {
-
-
-            ApiClient apiClient = new ApiClient();
-            //HttpClient httpClient = new HttpClient();
-            string apiUrl = "https://localhost:1337/orders/new";
-
-            Bestellung newOrder = new Bestellung
+            if (ltbPlanned.Items.Count > 0)
             {
-                Datum = DateTime.Now,
-                ID_Tisch = intselectedTable, // Beispielwert
-                Positionen = new List<Bestellposition>()
-            };
-
-            foreach (var item in ltbPlanned.Items)
-            {
-                string[] parts = item.ToString().Split('-');
-                string extradump = "";
 
 
-                if (parts.Count() == 4) { extradump = parts[2] + " " + parts[3]; }
-                // Erstellen einer neuen Bestellposition und Hinzufügen zur Liste in newOrder
-                Bestellposition position = new Bestellposition
+                
+                ApiClient apiClient = new ApiClient();
+                //HttpClient httpClient = new HttpClient();
+                string apiUrl = "https://localhost:1337/orders/new";
+
+                Bestellung newOrder = new Bestellung
                 {
-                    ID_Artikel = Int32.Parse(parts[0]), // Beispielwert
-                    Extras = extradump,
-                    Geliefert = 0
+                    Datum = DateTime.Now,
+                    ID_Tisch = intselectedTable, // Beispielwert
+                    Positionen = new List<Bestellposition>()
                 };
 
-                newOrder.Positionen.Add(position);
-            }
+                foreach (var item in ltbPlanned.Items)
+                {
+                    string[] parts = item.ToString().Split('-');
+                    string extradump = "";
 
-            var response = await apiClient.PostDataToApiGeneric<Bestellung>(apiUrl, newOrder);
-            if (response.IsSuccessStatusCode)
-            {
-                MessageBox.Show("Die Bestellung wurde erfolgreich an die API gesendet.");
+
+                    if (parts.Count() == 4) { extradump = parts[2] + " " + parts[3]; }
+                    // Erstellen einer neuen Bestellposition und Hinzufügen zur Liste in newOrder
+                    Bestellposition position = new Bestellposition
+                    {
+                        ID_Artikel = Int32.Parse(parts[0]), // Beispielwert
+                        Extras = extradump,
+                        Geliefert = 0
+                    };
+
+                    newOrder.Positionen.Add(position);
+                }
+
+                var response = await apiClient.PostDataToApiGeneric<Bestellung>(apiUrl, newOrder);
+                if (response.IsSuccessStatusCode)
+                {
+                    MessageBox.Show("Die Bestellung wurde erfolgreich an die API gesendet.");
+                }
+                else
+                {
+                    MessageBox.Show($"Fehler beim Senden der Bestellung. HTTP-Statuscode: {response.StatusCode}");
+                }
+                ltbPlanned.Items.Clear();
+                Console.WriteLine("");
             }
             else
             {
-                MessageBox.Show($"Fehler beim Senden der Bestellung. HTTP-Statuscode: {response.StatusCode}");
+                MessageBox.Show("Keine Artikel ausgewählt");
             }
-            ltbPlanned.Items.Clear();
-            Console.WriteLine("");
         }
 
 

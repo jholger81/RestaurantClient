@@ -18,7 +18,7 @@ namespace RestaurantClient
     public partial class payMenu : Form
     {
         public int intselectedTable;
-        public double inttopay;
+        public int inttopayinCent = 0;
         public payMenu(int intselectedTabledummy)
         {
             InitializeComponent();
@@ -27,8 +27,8 @@ namespace RestaurantClient
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             lbltable.Text = "Ausgewählter Tisch: " + intselectedTable;
-            inttopay = 0;
-            rtbcost.Text = inttopay.ToString();
+            inttopayinCent = 0;
+            rtbcost.Text = inttopayinCent.ToString();
 
         }
 
@@ -134,9 +134,8 @@ namespace RestaurantClient
         {
 
             ApiClient apiClient = new ApiClient();
-            //string apiUrl = "https://localhost:1337/tables";
-            if (clbnotpayed.SelectedItem != null)
-            {
+            
+           
                 string apiUrl = "https://localhost:1337/articles/id/" + clbnotpayed.SelectedItem.ToString().Split('-')[0];
                 //string result = ...
                 Artikel artikel = await apiClient.GetDataFromApiGeneric<Artikel>(apiUrl);
@@ -145,44 +144,58 @@ namespace RestaurantClient
                 {
                     if (e.CurrentValue == CheckState.Checked)
                     {
-                        inttopay -= (double)Math.Round((double)artikel.Preis / 100, 2);
-                        if (inttopay < 0) inttopay = 0;
-                        rtbcost.Text = inttopay.ToString();
+                        inttopayinCent -= artikel.Preis;
+                        if (inttopayinCent < 0) inttopayinCent = 0;
+                        MessageBox.Show("Preis: " + artikel.Preis);
+                        rtbcost.Text = Math.Round((double)inttopayinCent / 100, 2).ToString();
                     }
                     else
                     {
-                        inttopay += (double)Math.Round((double)artikel.Preis / 100, 2);
-                        rtbcost.Text = inttopay.ToString();
+                        inttopayinCent += artikel.Preis;
+                        MessageBox.Show("Preis: " + artikel.Preis);
+                        rtbcost.Text = Math.Round((double)inttopayinCent / 100, 2).ToString();
                     }
 
                 }
-            }
+            
         }
 
 
         private void cbxpayrest_CheckedChanged(object sender, EventArgs e)
         {
+            int count = 0;
+            ;
             if (cbxpayrest.Checked)
             {
                 for (int i = 0; i < clbnotpayed.Items.Count; i++)
                 {
-                    if (clbnotpayed.GetItemChecked(i) == false)
+                    if (!clbnotpayed.GetItemChecked(i))
                     {
+                        clbnotpayed.SetSelected(i, true);
                         clbnotpayed.SetItemChecked(i, true);
+                       
+                        
                     }
+                    count++;
 
                 }
 
             }
             else
             {
-                for (int i = 0; i < clbnotpayed.Items.Count; i++)
+                for (int i = (clbnotpayed.Items.Count - 1); i >= 0; i--)
                 {
-                    clbnotpayed.SetItemChecked(i, false);
+                    if (clbnotpayed.GetItemChecked(i))
+                    {
+                        //TODOO
+                        clbnotpayed.SetSelected(i, true);
+                        clbnotpayed.SetItemChecked(i, false);
+                       
+                    }
 
                 }
             }
-
+            
         }
 
         private void btnprint_Click(object sender, EventArgs e)
@@ -199,7 +212,7 @@ namespace RestaurantClient
                 stringToPrint += $"{item.ToString()}\r\n";
             }
 
-            stringToPrint += $"\r\nZu begleichender Betrag: {inttopay}";
+            stringToPrint += $"\r\nZu begleichender Betrag: {inttopayinCent}";
             stringToPrint += $"\r\nBezahlte Betrag:{rtbmoneygive.Text}";
 
             docToPrint.PrintPage += delegate (object sender1, PrintPageEventArgs e1)
