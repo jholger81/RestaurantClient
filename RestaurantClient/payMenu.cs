@@ -11,13 +11,14 @@ using System.Windows.Forms;
 using Restaurant;
 using Restaurant.Models;
 using System.Drawing.Printing;
+using System.Collections;
 
 namespace RestaurantClient
 {
     public partial class payMenu : Form
     {
         public int intselectedTable;
-        public double inttopay;
+        public int inttopayinCent = 0;
         public payMenu(int intselectedTabledummy)
         {
             InitializeComponent();
@@ -26,9 +27,9 @@ namespace RestaurantClient
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             lbltable.Text = "Ausgewählter Tisch: " + intselectedTable;
-            inttopay = 0;
-            rtbcost.Text = inttopay.ToString();
-            
+            inttopayinCent = 0;
+            rtbcost.Text = inttopayinCent.ToString();
+
         }
 
         private void btnback_Click(object sender, EventArgs e)
@@ -38,14 +39,14 @@ namespace RestaurantClient
 
         private void rtbmoneygive_TextChanged(object sender, EventArgs e)
         {
-            
+
         }
 
         private void rtbmoneygive_KeyPress(object sender, KeyPressEventArgs e)
         {
-            
-          
-            
+
+
+
         }
 
         private void rtbmoneygive_KeyUp(object sender, KeyEventArgs e)
@@ -90,7 +91,7 @@ namespace RestaurantClient
                     rtbTips.Text = Convert.ToString(tipsInEuro);
                 }
             }
-            
+
         }
 
         private async void payMenu_Load(object sender, EventArgs e)
@@ -132,8 +133,7 @@ namespace RestaurantClient
         private async void clbnotpayed_ItemCheck(object sender, ItemCheckEventArgs e)
         {
             ApiClient apiClient = new ApiClient();
-            if (clbnotpayed.SelectedItem != null)
-            {
+            
                 string apiUrl = "https://localhost:1337/articles/id/" + clbnotpayed.SelectedItem.ToString().Split('-')[0];
                 Artikel artikel = await apiClient.GetDataFromApiGeneric<Artikel>(apiUrl);
                 Console.WriteLine("");
@@ -141,44 +141,58 @@ namespace RestaurantClient
                 {
                     if (e.CurrentValue == CheckState.Checked)
                     {
-                        inttopay -= (double)Math.Round((double)artikel.Preis / 100, 2);
-                        if (inttopay < 0) inttopay = 0;
-                        rtbcost.Text = inttopay.ToString();
+                        inttopayinCent -= artikel.Preis;
+                        if (inttopayinCent < 0) inttopayinCent = 0;
+                        MessageBox.Show("Preis: " + artikel.Preis);
+                        rtbcost.Text = Math.Round((double)inttopayinCent / 100, 2).ToString();
                     }
                     else
                     {
-                        inttopay += (double)Math.Round((double)artikel.Preis / 100, 2);
-                        rtbcost.Text = inttopay.ToString();
+                        inttopayinCent += artikel.Preis;
+                        MessageBox.Show("Preis: " + artikel.Preis);
+                        rtbcost.Text = Math.Round((double)inttopayinCent / 100, 2).ToString();
                     }
 
                 }
-            }
-        }
             
+        }
+
 
         private void cbxpayrest_CheckedChanged(object sender, EventArgs e)
         {
+            int count = 0;
+            ;
             if (cbxpayrest.Checked)
             {
                 for (int i = 0; i < clbnotpayed.Items.Count; i++)
                 {
-                    if (clbnotpayed.GetItemChecked(i) == false)
+                    if (!clbnotpayed.GetItemChecked(i))
                     {
+                        clbnotpayed.SetSelected(i, true);
                         clbnotpayed.SetItemChecked(i, true);
+                       
+                        
                     }
-                    
+                    count++;
+
                 }
 
             }
             else
             {
-                for (int i = 0; i < clbnotpayed.Items.Count; i++)
+                for (int i = (clbnotpayed.Items.Count - 1); i >= 0; i--)
                 {
-                    clbnotpayed.SetItemChecked(i, false);
-                   
+                    if (clbnotpayed.GetItemChecked(i))
+                    {
+                        //TODOO
+                        clbnotpayed.SetSelected(i, true);
+                        clbnotpayed.SetItemChecked(i, false);
+                       
+                    }
+
                 }
             }
-           
+            
         }
 
         private void btnprint_Click(object sender, EventArgs e)
@@ -195,9 +209,9 @@ namespace RestaurantClient
                 stringToPrint += $"{item.ToString()}\r\n";
             }
 
-            stringToPrint += $"\r\nZu begleichender Betrag: {inttopay}";
+            stringToPrint += $"\r\nZu begleichender Betrag: {inttopayinCent}";
             stringToPrint += $"\r\nBezahlte Betrag:{rtbmoneygive.Text}";
-            
+
             docToPrint.PrintPage += delegate (object sender1, PrintPageEventArgs e1)
             {
                 e1.Graphics.DrawString(header, new Font("Times New Roman", 24), new SolidBrush(Color.Black), new RectangleF(0, 0, docToPrint.DefaultPageSettings.PrintableArea.Width, docToPrint.DefaultPageSettings.PrintableArea.Height));
@@ -219,7 +233,16 @@ namespace RestaurantClient
 
         private void btnpay_Click(object sender, EventArgs e)
         {
+            
+            ArrayList list = new ArrayList();
+            foreach (object item in clbnotpayed.CheckedItems)
+            {
+                list.Add(item.ToString());
+            }
 
+            string dummy = "";
+            foreach (string item in list) { dummy += item + "\n"; }
+            MessageBox.Show(dummy);
         }
     }
 }
