@@ -122,34 +122,6 @@ namespace RestaurantClient
         }
 
 
-        private async void btndummy_Click(object sender, EventArgs e)
-        {
-            //ApiClient apiClient = new ApiClient();
-            //string apiUrl = "https://localhost:1337/orders/7";
-            //string result = await apiClient.GetDataFromApi(apiUrl);
-            //Bestellung bestellung = new Bestellung();
-            //Bestellung bestellung2 = await apiClient.GetDataFromApiGeneric<Bestellung>(apiUrl);
-
-            //if (result != null)
-            //{
-            //    Console.WriteLine("API response:");
-            //    Console.WriteLine(result);
-            //    bestellung = JsonSerializer.Deserialize<Bestellung>(result);
-            //}
-            //else
-            //{
-            //    Console.WriteLine("API request failed or encountered an error.");
-            //}
-            //Console.WriteLine("");
-
-            ApiClient apiClient = new ApiClient();
-            //string apiUrl = "https://localhost:1337/tables";
-            string apiUrl = "https://localhost:1337/articles/drinks";
-            //string result = ...
-            List<Artikel> Artikel = await apiClient.GetDataFromApiGeneric<List<Artikel>>(apiUrl);
-            Console.WriteLine("");
-            MessageBox.Show(Artikel.First().Name);
-        }
 
         private void pictureBox1_Click(object sender, EventArgs e)
         {

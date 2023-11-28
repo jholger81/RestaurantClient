@@ -57,7 +57,7 @@
             // mtcLabel
             // 
             this.mtcLabel.AutoSize = true;
-            this.mtcLabel.Location = new System.Drawing.Point(110, 12);
+            this.mtcLabel.Location = new System.Drawing.Point(36, 29);
             this.mtcLabel.Name = "mtcLabel";
             this.mtcLabel.Size = new System.Drawing.Size(147, 13);
             this.mtcLabel.TabIndex = 2;
@@ -72,9 +72,12 @@
             this.btnStartReport.TabIndex = 3;
             this.btnStartReport.Text = "Anzeigen";
             this.btnStartReport.UseVisualStyleBackColor = false;
+            this.btnStartReport.Click += new System.EventHandler(this.btnStartReport_Click);
             // 
             // dtpReportDay
             // 
+            this.dtpReportDay.CustomFormat = "dd-MM-yyyy";
+            this.dtpReportDay.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.dtpReportDay.Location = new System.Drawing.Point(39, 45);
             this.dtpReportDay.Name = "dtpReportDay";
             this.dtpReportDay.Size = new System.Drawing.Size(461, 20);
@@ -104,6 +107,7 @@
             // 
             // rtbeinnahmen
             // 
+            this.rtbeinnahmen.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.rtbeinnahmen.Location = new System.Drawing.Point(36, 243);
             this.rtbeinnahmen.Name = "rtbeinnahmen";
             this.rtbeinnahmen.Size = new System.Drawing.Size(464, 61);
@@ -112,6 +116,7 @@
             // 
             // rtbTrinkgeld
             // 
+            this.rtbTrinkgeld.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold);
             this.rtbTrinkgeld.Location = new System.Drawing.Point(36, 361);
             this.rtbTrinkgeld.Name = "rtbTrinkgeld";
             this.rtbTrinkgeld.Size = new System.Drawing.Size(464, 61);
