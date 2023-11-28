@@ -107,7 +107,7 @@ namespace RestaurantClient
                 {
                     foreach (var pos in bestellung.Positionen)
                     {
-                        clbnotpayed.Items.Add(pos.ID_Artikel + " - " + pos.Artikel.Name);
+                        clbnotpayed.Items.Add(pos.ID_Bestellposition + " - " + pos.ID_Artikel + " - " + pos.Artikel.Name);
                     }
                 }
             }
@@ -134,7 +134,7 @@ namespace RestaurantClient
         {
             ApiClient apiClient = new ApiClient();
             
-                string apiUrl = "https://localhost:1337/articles/id/" + clbnotpayed.SelectedItem.ToString().Split('-')[0];
+                string apiUrl = "https://localhost:1337/articles/id/" + clbnotpayed.SelectedItem.ToString().Split('-')[1];
                 Artikel artikel = await apiClient.GetDataFromApiGeneric<Artikel>(apiUrl);
                 Console.WriteLine("");
                 if (artikel != null)
@@ -231,14 +231,36 @@ namespace RestaurantClient
             }
         }
 
-        private void btnpay_Click(object sender, EventArgs e)
+        private async void btnpay_Click(object sender, EventArgs e)
         {
             
+            List<Bestellposition> bestellpositions = null;
+ 
             ArrayList list = new ArrayList();
             foreach (object item in clbnotpayed.CheckedItems)
             {
-                list.Add(item.ToString());
+                bestellpositions.Add( new Bestellposition { ID_Artikel = int.Parse(item.ToString().Split('-')[1].Trim()),
+                    ID_Bestellung = 0,
+                    ID_Bestellposition = int.Parse(item.ToString().Split('-')[0].Trim()) });
+
+               
+               
             }
+
+            ApiClient apiClient = new ApiClient();
+            //HttpClient httpClient = new HttpClient();
+            string apiUrl = "https://localhost:1337/pay/" + rtbTips;
+
+            var response = await apiClient.PostDataToApiGeneric<List<Bestellposition>>(apiUrl, bestellpositions);
+            if (response.IsSuccessStatusCode)
+            {
+                MessageBox.Show("Die Bestellung wurde erfolgreich an die API gesendet.");
+            }
+            else
+            {
+                MessageBox.Show($"Fehler beim Senden der Bestellung. HTTP-Statuscode: {response.StatusCode}");
+            }
+
 
             string dummy = "";
             foreach (string item in list) { dummy += item + "\n"; }
