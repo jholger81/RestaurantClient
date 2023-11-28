@@ -143,13 +143,13 @@ namespace RestaurantClient
                     {
                         inttopayinCent -= artikel.Preis;
                         if (inttopayinCent < 0) inttopayinCent = 0;
-                        MessageBox.Show("Preis: " + artikel.Preis);
+                        
                         rtbcost.Text = Math.Round((double)inttopayinCent / 100, 2).ToString();
                     }
                     else
                     {
                         inttopayinCent += artikel.Preis;
-                        MessageBox.Show("Preis: " + artikel.Preis);
+                        
                         rtbcost.Text = Math.Round((double)inttopayinCent / 100, 2).ToString();
                     }
 

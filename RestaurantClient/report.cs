@@ -43,5 +43,18 @@ namespace RestaurantClient
         {
             dtpReportDay.Value = dtpReportDay.Value.AddDays(-7);
         }
+
+        private async void btnStartReport_Click(object sender, EventArgs e)
+        {
+            ApiClient apiClient = new ApiClient();
+            string apiUrl = "https://localhost:1337/statistic/income/" + dtpReportDay.Text;
+
+            var result = await apiClient.GetDataFromApiGeneric<int>(apiUrl);
+            rtbeinnahmen.Text = ((double)result/100).ToString();
+            apiUrl = "https://localhost:1337/statistic/tips/" + dtpReportDay.Text;
+
+            result = await apiClient.GetDataFromApiGeneric<int>(apiUrl);
+            rtbTrinkgeld.Text = ((double)result / 100).ToString();
+        }
     }
 }
