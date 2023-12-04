@@ -59,7 +59,7 @@ namespace RestaurantClient
                     var article = await apiClient.GetDataFromApiGeneric<Artikel>(apiUrlArticle);
 
                     newlabel += $"{position.ID_Artikel} - {article.Name}";
-                    newlabel += position.Extras != null ? $", Extras: {position.Extras}\r\n" : "\r\n";
+                    newlabel += (position.Extras != null) ? $", Extras: {position.Extras}\r\n" : "\r\n";
                 }
                 lbl_openPositions.Text = newlabel;
             }

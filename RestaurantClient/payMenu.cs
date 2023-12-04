@@ -143,13 +143,13 @@ namespace RestaurantClient
                 {
                     inttopayinCent -= artikel.Preis;
                     if (inttopayinCent < 0) inttopayinCent = 0;
-                    MessageBox.Show("Preis: " + artikel.Preis);
+                    // MessageBox.Show("Preis: " + artikel.Preis); // TODO : kann weg
                     rtbcost.Text = Math.Round((double)inttopayinCent / 100, 2).ToString();
                 }
                 else
                 {
                     inttopayinCent += artikel.Preis;
-                    MessageBox.Show("Preis: " + artikel.Preis);
+                    // MessageBox.Show("Preis: " + artikel.Preis); // TODO : kann weg
                     rtbcost.Text = Math.Round((double)inttopayinCent / 100, 2).ToString();
                 }
             }
@@ -239,12 +239,7 @@ namespace RestaurantClient
             {
                 orderpositions.Add(Convert.ToInt32(item.ToString().Split('-')[0]));
             }
-            //// parse list back to list of type: orderposition
-            //foreach(var orderposition in orderpositions)
-            //{
 
-            //}
-            
             List<Bestellposition> orderpos = new List<Bestellposition>();
             // make dummy list of orderposition objects, since we only need the id to close them
             foreach (var pos in orderpositions)
@@ -258,19 +253,10 @@ namespace RestaurantClient
             }
 
             ApiClient apiClient = new ApiClient();
-            string apiUrl;
-            // set list to paid
-            //foreach (var pos in orderpos)
-            //{
-                apiUrl = $"https://localhost:1337/orders/pay/{trinkgeld}";
-                //Artikel artikel = await apiClient.GetDataFromApiGeneric<Artikel>(apiUrl);
-                var response = await apiClient.PostDataToApiGeneric<List<Bestellposition>>(apiUrl, orderpos);
-            Console.WriteLine();
+            string apiUrl = $"https://localhost:1337/orders/pay/{trinkgeld}";
+            var response = await apiClient.PostDataToApiGeneric<List<Bestellposition>>(apiUrl, orderpos);
+            
             this.Close();
-                // orders/pay/{trinkgeld}
-                // body: list<bestellposition>
-                // var response = await apiClient.PostDataToApiGeneric<Bestellung>(apiUrl, newOrder);
-            //}
         }
     }
 }

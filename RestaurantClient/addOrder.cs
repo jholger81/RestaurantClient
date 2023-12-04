@@ -18,6 +18,8 @@ namespace RestaurantClient
     public partial class addOrder : Form
     {
         public int intselectedTable;
+        Timer updateStatusLabelTimer;
+
         public addOrder(int intselectedTable1)
         {
             InitializeComponent();
@@ -27,6 +29,22 @@ namespace RestaurantClient
 
             lbltable.Text = "Ausgewählter Tisch: " + intselectedTable1;
             intselectedTable = intselectedTable1;
+            InitUpdateStatusLabelTimer();
+        }
+
+        public void InitUpdateStatusLabelTimer()
+        {
+            if (updateStatusLabelTimer == null)
+            {
+                updateStatusLabelTimer = new Timer();
+                updateStatusLabelTimer.Tick += updateStatusLabelTimer_Tick;
+            }
+            updateStatusLabelTimer.Interval = 3000; // 3 sec
+        }
+
+        private void updateStatusLabelTimer_Tick(object sender, EventArgs e)
+        {
+            this.lbl_status.Text = "";
         }
 
         private void btnback_Click(object sender, EventArgs e)
@@ -43,15 +61,12 @@ namespace RestaurantClient
         {
             ltbArticle.Items.Clear();
             ApiClient apiClient = new ApiClient();
-            //string apiUrl = "https://localhost:1337/tables";
             string apiUrl = "https://localhost:1337/articles/drinks";
-            //string result = ...
             List<Artikel> artikelliste = await apiClient.GetDataFromApiGeneric<List<Artikel>>(apiUrl);
             Console.WriteLine("");
             foreach (var article in artikelliste)
             {
                 ltbArticle.Items.Add(article.ID_Artikel + " - " + article.Name);
-
             }
         }
 
@@ -59,15 +74,12 @@ namespace RestaurantClient
         {
             ltbArticle.Items.Clear();
             ApiClient apiClient = new ApiClient();
-            //string apiUrl = "https://localhost:1337/tables";
             string apiUrl = "https://localhost:1337/articles/food";
-            //string result = ...
             List<Artikel> artikelliste = await apiClient.GetDataFromApiGeneric<List<Artikel>>(apiUrl);
             Console.WriteLine("");
             foreach (var article in artikelliste)
             {
                 ltbArticle.Items.Add(article.ID_Artikel + " - " + article.Name);
-
             }
         }
 
@@ -75,15 +87,12 @@ namespace RestaurantClient
         {
             ltbArticle.Items.Clear();
             ApiClient apiClient = new ApiClient();
-            //string apiUrl = "https://localhost:1337/tables";
             string apiUrl = "https://localhost:1337/articles/dessert";
-            //string result = ...
             List<Artikel> artikelliste = await apiClient.GetDataFromApiGeneric<List<Artikel>>(apiUrl);
             Console.WriteLine("");
             foreach (var article in artikelliste)
             {
                 ltbArticle.Items.Add(article.ID_Artikel + " - " + article.Name);
-
             }
         }
 
@@ -91,11 +100,7 @@ namespace RestaurantClient
         {
             if (ltbPlanned.Items.Count > 0)
             {
-
-
-                
                 ApiClient apiClient = new ApiClient();
-                //HttpClient httpClient = new HttpClient();
                 string apiUrl = "https://localhost:1337/orders/new";
 
                 Bestellung newOrder = new Bestellung
@@ -126,7 +131,7 @@ namespace RestaurantClient
                 var response = await apiClient.PostDataToApiGeneric<Bestellung>(apiUrl, newOrder);
                 if (response.IsSuccessStatusCode)
                 {
-                    MessageBox.Show("Die Bestellung wurde erfolgreich an die API gesendet.");
+                    ShowStatus();
                 }
                 else
                 {
@@ -141,7 +146,13 @@ namespace RestaurantClient
             }
         }
 
-
+        private void ShowStatus()
+        {
+            this.lbl_status.Text = "Gesendet.";
+            // reset Timer, then start it
+            updateStatusLabelTimer.Stop();
+            updateStatusLabelTimer.Start();
+        }
 
         private void ltbArticle_DoubleClick(object sender, EventArgs e)
         {

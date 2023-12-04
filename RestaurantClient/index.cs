@@ -84,6 +84,9 @@ namespace RestaurantClient
 
         private async void tischwechselnToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            if (intselectedTable == 0)
+                return;
+
             int fromTableId = intselectedTable;
             Tisch fromTable = new Tisch() { ID_Tisch = fromTableId };
             Button ctn = (Button)this.Controls.Find("btnTisch" + Convert.ToString(fromTableId), true)[0];
@@ -107,26 +110,11 @@ namespace RestaurantClient
 
         private async void ButtonClick(object sender, EventArgs e)
         {
-
             ltbshoworderd.Items.Clear();
             intselectedTable = Int32.Parse(((Button)sender).Text.Remove(0, 6));
-
-            //ApiClient apiClient = new ApiClient();
-            //string apiUrl = "https://localhost:1337/orders/" + intselectedTable.ToString() + "/open";
-            //List<Bestellung> bestellungen = await apiClient.GetDataFromApiGeneric<List<Bestellung>>(apiUrl);
-
-            //if (bestellungen != null)
-            //{
-            //    foreach (var bestellung in bestellungen)
-            //    {
-            //        foreach (var pos in bestellung.Positionen)
-            //        {
-            //            ltbshoworderd.Items.Add(pos.Artikel.Name);
-            //        }
-            //    }
-            //}
             UpdateListData();
         }
+
 
         private async void UpdateListData()
         {
@@ -163,9 +151,9 @@ namespace RestaurantClient
             inteac++;
             if (inteac >= 5)
             {
-
                 SoundPlayer simpleSound = new SoundPlayer(@".\palim.wav");
                 simpleSound.Play();
+                inteac = 0;
             }
         }
 
@@ -193,9 +181,6 @@ namespace RestaurantClient
             ApiClient apiClient = new ApiClient();
             string apiUrl = "https://localhost:1337/tables";
             List<Tisch> tischliste = await apiClient.GetDataFromApiGeneric<List<Tisch>>(apiUrl);
-            // TODO
-            //string apiUrl = "https://localhost:1337/orders/" + intselectedTable.ToString() + "/open";
-            //List<Bestellung> bestellungen = await apiClient.GetDataFromApiGeneric<List<Bestellung>>(apiUrl);
 
             if (tischliste == null)
             {
@@ -205,22 +190,6 @@ namespace RestaurantClient
             }
             else
             {
-                //foreach (var tisch in tischliste)
-                //{
-                    
-                //}
-
-                //apiClient = new ApiClient();
-                //apiUrl = "https://localhost:1337/tables/open";
-                //tischliste = await apiClient.GetDataFromApiGeneric<List<Tisch>>(apiUrl);
-                //foreach (var tisch in tischliste)
-                //{
-                //    if (tisch.ID_Kellner == kellnerID)
-                //    {
-                //        Button ctn = (Button)this.Controls.Find("btnTisch" + Convert.ToString(tisch.ID_Tisch), true)[0];
-                //        ctn.BackColor = Color.Khaki; // TODO Timer Tick
-                //    }
-                //}
                 foreach (var tisch in tischliste)
                 {
                     Button ctn;
@@ -231,7 +200,6 @@ namespace RestaurantClient
                     ctn = (Button)this.Controls.Find("btnTisch" + Convert.ToString(tisch.ID_Tisch), true)[0];
                     if (tisch.ID_Kellner != kellnerID)
                     {
-                        //ctn = (Button)this.Controls.Find("btnTisch" + Convert.ToString(tisch.ID_Tisch), true)[0];
                         ctn.BackColor = Color.Salmon;
                         continue;
                     }
@@ -241,8 +209,6 @@ namespace RestaurantClient
                         ctn.BackColor = Color.DarkSeaGreen;
                     }
                     
-                    
-
                     List<Bestellposition> bpos = new List<Bestellposition>();
                     if (bestellungen != null && bestellungen.Count != 0)
                     {
@@ -250,7 +216,6 @@ namespace RestaurantClient
                         {
                             foreach (var pos in bestellung.Positionen)
                             {
-                                //ltbshoworderd.Items.Add(pos.Artikel.Name);
                                 bpos.Add(pos);
                                 ctn = (Button)this.Controls.Find("btnTisch" + Convert.ToString(tisch.ID_Tisch), true)[0];
                                 ctn.BackColor = Color.Khaki;
@@ -378,17 +343,7 @@ namespace RestaurantClient
                 }
             }
 
-            apiUrl = "https://localhost:1337/tables/open";
-            tischliste = await apiClient.GetDataFromApiGeneric<List<Tisch>>(apiUrl);
-            Console.WriteLine("");
-            foreach (var tisch in tischliste)
-            {
-                if (tisch.ID_Kellner == kellnerID)
-                {
-                    Button ctn = (Button)this.Controls.Find("btnTisch" + Convert.ToString(tisch.ID_Tisch), true)[0];
-                    ctn.BackColor = Color.Khaki; // TODO anfang
-                }
-            }
+            index_Load2();
         }
 
 
