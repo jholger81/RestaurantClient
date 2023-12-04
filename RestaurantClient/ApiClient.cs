@@ -121,18 +121,14 @@ public class ApiClient
             request.Content = content;
 
             response = await httpClient.SendAsync(request);
-            if (response.IsSuccessStatusCode)
+            if (!response.IsSuccessStatusCode)
             {
-                MessageBox.Show($"Success, HTTP-Statuscode: {response.StatusCode}");
-            }
-            else
-            {
-                MessageBox.Show($"Not successful, HTTP-Statuscode: {response.StatusCode}");
+                MessageBox.Show($"Not successful, HTTP-Statuscode: {response.StatusCode}", "API Call failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"An error occurred: {ex.Message}");
+            MessageBox.Show($"An error occurred: {ex.Message}", "API Call failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
         return response;
     }

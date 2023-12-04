@@ -22,6 +22,7 @@ namespace RestaurantClient
         int intselectedTable = 0;
         int inteac = 0;
         public int kellnerID = 0;
+        Timer updateTableViewTimer;
 
 
         public index()
@@ -30,18 +31,30 @@ namespace RestaurantClient
             this.FormBorderStyle = FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-
-
-
-
-
+            InitUpdateTableViewTimer();
         }
 
+
+        public void InitUpdateTableViewTimer()
+        {
+            if (updateTableViewTimer == null)
+            {
+                updateTableViewTimer = new Timer();
+                updateTableViewTimer.Tick += UpdateTableViewTimer_Tick;
+            }
+            updateTableViewTimer.Interval = 10000; // 10 sec
+            updateTableViewTimer.Start();
+        }
+
+
+        private void UpdateTableViewTimer_Tick(object sender, EventArgs args)
+        {
+            index_Load2();
+        }
 
 
         private void btnadd_Click(object sender, EventArgs e)
         {
-
             if (intselectedTable != 0)
             {
                 Form addOrder = new addOrder(intselectedTable);
@@ -49,23 +62,31 @@ namespace RestaurantClient
                 // Show the settings form
                 addOrder.Show();
             }
-
         }
+
 
         private void btnpay_Click(object sender, EventArgs e)
         {
             if (intselectedTable != 0)
             {
                 Form payMenu = new payMenu(intselectedTable);
+                payMenu.FormClosed += Refresh;
 
                 // Show the settings form
                 payMenu.Show();
             }
+        }
 
+        private void Refresh(object sender, FormClosedEventArgs e)
+        {
+            index_Load2();
         }
 
         private async void tischwechselnToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            if (intselectedTable == 0)
+                return;
+
             int fromTableId = intselectedTable;
             Tisch fromTable = new Tisch() { ID_Tisch = fromTableId };
             Button ctn = (Button)this.Controls.Find("btnTisch" + Convert.ToString(fromTableId), true)[0];
@@ -84,74 +105,81 @@ namespace RestaurantClient
                 string apiUrl = "https://localhost:1337/tables/switch";
                 await apiClient.PutDataToApiGeneric<Tisch>(apiUrl, fromTable, toTable);
             }
-           
-   
-           
-            
-
-            //TODOo Farbwechsel
-
-
         }
+
 
         private async void ButtonClick(object sender, EventArgs e)
         {
-
             ltbshoworderd.Items.Clear();
             intselectedTable = Int32.Parse(((Button)sender).Text.Remove(0, 6));
+            UpdateListData();
+        }
 
+
+        private async void UpdateListData()
+        {
             ApiClient apiClient = new ApiClient();
-            //string apiUrl = "https://localhost:1337/tables";
-            string apiUrl = "https://localhost:1337/orders/" + intselectedTable.ToString();
-            //string result = ...
+            string apiUrl = "https://localhost:1337/orders/" + intselectedTable.ToString() + "/open";
             List<Bestellung> bestellungen = await apiClient.GetDataFromApiGeneric<List<Bestellung>>(apiUrl);
-            Console.WriteLine("");
-            
+
+            ltbshoworderd.Items.Clear();
             if (bestellungen != null)
             {
                 foreach (var bestellung in bestellungen)
                 {
                     foreach (var pos in bestellung.Positionen)
                     {
-
                         ltbshoworderd.Items.Add(pos.Artikel.Name);
-
                     }
                 }
             }
         }
 
 
+        private async void btndummy_Click(object sender, EventArgs e)
+        {
+            ApiClient apiClient = new ApiClient();
+            string apiUrl = "https://localhost:1337/articles/drinks";
+            List<Artikel> Artikel = await apiClient.GetDataFromApiGeneric<List<Artikel>>(apiUrl);
+            Console.WriteLine("");
+            MessageBox.Show(Artikel.First().Name);
+        }
+        
 
         private void pictureBox1_Click(object sender, EventArgs e)
         {
-
             inteac++;
             if (inteac >= 5)
             {
-
                 SoundPlayer simpleSound = new SoundPlayer(@".\palim.wav");
                 simpleSound.Play();
+                inteac = 0;
             }
-
         }
+
 
         private void pictureBox1_MouseLeave(object sender, EventArgs e)
         {
             inteac = 0;
         }
 
+
         private void menuStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
 
         }
 
+
         private async void index_Load(object sender, EventArgs e)
         {
+            index_Load2();
+        }
+
+
+        private async void index_Load2()
+        {
             ApiClient apiClient = new ApiClient();
-            //string apiUrl = "https://localhost:1337/tables";
             string apiUrl = "https://localhost:1337/tables";
-            //string result = ...
             List<Tisch> tischliste = await apiClient.GetDataFromApiGeneric<List<Tisch>>(apiUrl);
 
             if (tischliste == null)
@@ -164,29 +192,41 @@ namespace RestaurantClient
             {
                 foreach (var tisch in tischliste)
                 {
+                    Button ctn;
+                    apiClient = new ApiClient();
+                    apiUrl = "https://localhost:1337/orders/" + tisch.ID_Tisch.ToString() + "/open";
+                    List<Bestellung> bestellungen = await apiClient.GetDataFromApiGeneric<List<Bestellung>>(apiUrl);
+
+                    ctn = (Button)this.Controls.Find("btnTisch" + Convert.ToString(tisch.ID_Tisch), true)[0];
                     if (tisch.ID_Kellner != kellnerID)
                     {
-                        Button ctn = (Button)this.Controls.Find("btnTisch" + Convert.ToString(tisch.ID_Tisch), true)[0];
                         ctn.BackColor = Color.Salmon;
+                        continue;
                     }
-                }
-
-                apiClient = new ApiClient();
-                //string apiUrl = "https://localhost:1337/tables";
-                apiUrl = "https://localhost:1337/tables/open";
-                //string result = ...
-                tischliste = await apiClient.GetDataFromApiGeneric<List<Tisch>>(apiUrl);
-                Console.WriteLine("");
-                foreach (var tisch in tischliste)
-                {
-                    if (tisch.ID_Kellner == kellnerID)
+                    else
                     {
-                        Button ctn = (Button)this.Controls.Find("btnTisch" + Convert.ToString(tisch.ID_Tisch), true)[0];
-                        ctn.BackColor = Color.Khaki;
+                        
+                        ctn.BackColor = Color.DarkSeaGreen;
+                    }
+                    
+                    List<Bestellposition> bpos = new List<Bestellposition>();
+                    if (bestellungen != null && bestellungen.Count != 0)
+                    {
+                        foreach (var bestellung in bestellungen)
+                        {
+                            foreach (var pos in bestellung.Positionen)
+                            {
+                                bpos.Add(pos);
+                                ctn = (Button)this.Controls.Find("btnTisch" + Convert.ToString(tisch.ID_Tisch), true)[0];
+                                ctn.BackColor = Color.Khaki;
+                            }
+                        }
                     }
                 }
             }
+            UpdateListData();
         }
+
 
         private void reportToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -196,13 +236,23 @@ namespace RestaurantClient
             report.Show();
         }
 
+
+        private async Task<bool> CheckEnter(object sender, KeyPressEventArgs e, string loginName, string passwort)
+        {
+            if (e.KeyChar != Convert.ToChar(Keys.Enter) || e.KeyChar != Convert.ToChar(Keys.Return))
+                return false;
+            return true;
+        }
+
+
         private async Task TextBoxWithReturn(string titel = "Login")
         {
+            bool enterPressed;
             TextBox loginNameTextBox, passwordTextBox;
             Button okayButton;
-            //int kellnerID = 0;
-
+            
             Form inputForm = new Form();
+            
             inputForm.Size = new Size(300, 150);
             inputForm.Text = titel;
             inputForm.FormBorderStyle = FormBorderStyle.FixedSingle;
@@ -228,9 +278,28 @@ namespace RestaurantClient
                 await OkayButton_Click(sender, EventArgs, loginNameTextBox.Text, passwordTextBox.Text);
                 inputForm.Close();
             };
+            inputForm.KeyPress += async (sender, EventArgs) =>
+            {
+                enterPressed = await CheckEnter(sender, EventArgs, loginNameTextBox.Text, passwordTextBox.Text);
+                if (enterPressed)
+                {
+                    await OkayButton_Click(sender, EventArgs, loginNameTextBox.Text, passwordTextBox.Text);
+                    inputForm.Close();
+                }
+            };
+            passwordTextBox.KeyPress += async (sender, EventArgs) =>
+            {
+                enterPressed = await CheckEnter(sender, EventArgs, loginNameTextBox.Text, passwordTextBox.Text);
+                if (enterPressed)
+                {
+                    await OkayButton_Click(sender, EventArgs, loginNameTextBox.Text, passwordTextBox.Text);
+                    inputForm.Close();
+                }
+            };
             inputForm.Controls.Add(okayButton);
             inputForm.ShowDialog();
         }
+
 
         private async Task OkayButton_Click(object sender, EventArgs e, string loginName, string passwort)
         {
@@ -245,6 +314,7 @@ namespace RestaurantClient
 
             kellnerID = response?.ID_Kellner ?? 0;
         }
+
 
         private async void kellnerEinloggenToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -273,28 +343,18 @@ namespace RestaurantClient
                 }
             }
 
-            apiUrl = "https://localhost:1337/tables/open";
-            tischliste = await apiClient.GetDataFromApiGeneric<List<Tisch>>(apiUrl);
-            Console.WriteLine("");
-            foreach (var tisch in tischliste)
-            {
-                if (tisch.ID_Kellner == kellnerID)
-                {
-                    Button ctn = (Button)this.Controls.Find("btnTisch" + Convert.ToString(tisch.ID_Tisch), true)[0];
-                    ctn.BackColor = Color.Khaki;
-                }
-            }
+            index_Load2();
         }
+
 
         private async void kellnerZuweisenToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            // todoo switch/{id_Kellner}/{id_Tisch}
-            //todoo switch/{id_Kellner}/{id_Tisch
            ApiClient apiClient = new ApiClient();
             string apiUrl = "https://localhost:1337/waiter/switch/" + kellnerID + "/" + intselectedTable;
 
             await apiClient.GetDataFromApiGeneric<string>(apiUrl);
         }
+
 
         private void kücheToolStripMenuItem_Click(object sender, EventArgs e)
         {

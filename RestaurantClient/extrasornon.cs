@@ -38,7 +38,15 @@ namespace RestaurantClient
             }
             else
             {
-                this.ReturnValue1 = "Kein: " + rtbRemove.Text + " - Extra: " + rtbExtras.Text;
+                string temp = "";
+                if (rtbRemove.Text != string.Empty)
+                    temp += $"Kein: {rtbRemove.Text}";
+                if (rtbRemove.Text != string.Empty && rtbExtras.Text != string.Empty)
+                    temp += " - ";
+                if (rtbExtras.Text != string.Empty)
+                    temp += "Extra: " + rtbExtras.Text;
+                //this.ReturnValue1 = "Kein: " + rtbRemove.Text + " - Extra: " + rtbExtras.Text;
+                this.ReturnValue1 = temp;
             }
             this.DialogResult = DialogResult.OK;
             this.Close();
