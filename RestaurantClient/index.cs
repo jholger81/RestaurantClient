@@ -22,6 +22,7 @@ namespace RestaurantClient
         int intselectedTable = 0;
         int inteac = 0;
         public int kellnerID = 0;
+        Timer updateTableViewTimer;
 
 
         public index()
@@ -30,13 +31,24 @@ namespace RestaurantClient
             this.FormBorderStyle = FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-
-
-
-
-
+            InitUpdateTableViewTimer();
         }
 
+        public void InitUpdateTableViewTimer()
+        {
+            if (updateTableViewTimer == null)
+            {
+                updateTableViewTimer = new Timer();
+                updateTableViewTimer.Tick += UpdateTableViewTimer_Tick;
+            }
+            updateTableViewTimer.Interval = 10000; // 10 sec
+            updateTableViewTimer.Start();
+        }
+
+        private void UpdateTableViewTimer_Tick(object sender, EventArgs args)
+        {
+            index_Load2();
+        }
 
 
         private void btnadd_Click(object sender, EventArgs e)
@@ -176,6 +188,12 @@ namespace RestaurantClient
 
         private async void index_Load(object sender, EventArgs e)
         {
+            index_Load2();
+        }
+
+
+        private async void index_Load2()
+        {
             ApiClient apiClient = new ApiClient();
             //string apiUrl = "https://localhost:1337/tables";
             string apiUrl = "https://localhost:1337/tables";
@@ -224,13 +242,29 @@ namespace RestaurantClient
             report.Show();
         }
 
+        private async Task CheckEnter(object sender, KeyPressEventArgs e, string loginName, string passwort)
+        {
+            if (e.KeyChar != Convert.ToChar(Keys.Enter) || e.KeyChar != Convert.ToChar(Keys.Return))
+                return;
+            ApiClient apiClient = new ApiClient();
+            string apiUrl = "https://localhost:1337/waiter/login";
+            Kellner loginData = new Kellner
+            {
+                LoginName = loginName,
+                Passwort = passwort
+            };
+            var response = await apiClient.GetDataFromApiGeneric<Kellner>(apiUrl, loginData);
+
+            kellnerID = response?.ID_Kellner ?? 0;
+        }
+
         private async Task TextBoxWithReturn(string titel = "Login")
         {
             TextBox loginNameTextBox, passwordTextBox;
             Button okayButton;
-            //int kellnerID = 0;
-
+            
             Form inputForm = new Form();
+            
             inputForm.Size = new Size(300, 150);
             inputForm.Text = titel;
             inputForm.FormBorderStyle = FormBorderStyle.FixedSingle;
@@ -254,6 +288,11 @@ namespace RestaurantClient
             okayButton.Click += async (sender, EventArgs) =>
             {
                 await OkayButton_Click(sender, EventArgs, loginNameTextBox.Text, passwordTextBox.Text);
+                inputForm.Close();
+            };
+            inputForm.KeyPress += async (sender, EventArgs) => // TODO event feuer noch nicht ab
+            {
+                await CheckEnter(sender, EventArgs, loginNameTextBox.Text, passwordTextBox.Text);
                 inputForm.Close();
             };
             inputForm.Controls.Add(okayButton);
