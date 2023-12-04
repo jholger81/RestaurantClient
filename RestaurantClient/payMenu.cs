@@ -29,25 +29,26 @@ namespace RestaurantClient
             lbltable.Text = "Ausgewählter Tisch: " + intselectedTable;
             inttopayinCent = 0;
             rtbcost.Text = inttopayinCent.ToString();
-
         }
+
 
         private void btnback_Click(object sender, EventArgs e)
         {
             this.Close();
         }
 
+
         private void rtbmoneygive_TextChanged(object sender, EventArgs e)
         {
 
         }
 
+
         private void rtbmoneygive_KeyPress(object sender, KeyPressEventArgs e)
         {
 
-
-
         }
+
 
         private void rtbmoneygive_KeyUp(object sender, KeyEventArgs e)
         {
@@ -75,31 +76,26 @@ namespace RestaurantClient
                 }
             }
 
-
             if (!string.IsNullOrEmpty(rtbmoneygive.Text))
             {
                 double moneyGiven = 0;
                 double cost = 0;
 
-
-
                 if (double.TryParse(rtbmoneygive.Text, out moneyGiven) &&
                     double.TryParse(rtbcost.Text, out cost))
                 {
-
                     double tipsInEuro = moneyGiven - cost;
                     rtbTips.Text = Convert.ToString(tipsInEuro);
                 }
             }
-
         }
+
 
         private async void payMenu_Load(object sender, EventArgs e)
         {
             ApiClient apiClient = new ApiClient();
             string apiUrl = "https://localhost:1337/orders/" + intselectedTable.ToString() + "/open";
             List<Bestellung> bestellungen = await apiClient.GetDataFromApiGeneric<List<Bestellung>>(apiUrl);
-            Console.WriteLine("");
 
             if (bestellungen != null)
             {
@@ -107,7 +103,7 @@ namespace RestaurantClient
                 {
                     foreach (var pos in bestellung.Positionen)
                     {
-                        clbnotpayed.Items.Add(pos.ID_Artikel + " - " + pos.Artikel.Name);
+                        clbnotpayed.Items.Add(pos.ID_Bestellposition + " - " + pos.ID_Artikel + " - " + pos.Artikel.Name);
                     }
                 }
             }
@@ -121,47 +117,49 @@ namespace RestaurantClient
                 {
                     foreach (var pos in bestellung.Positionen)
                     {
-
                         lbpayed.Items.Add(pos.ID_Artikel + " - " + pos.Artikel.Name);
-
                     }
                 }
+            }
+            if (clbnotpayed.Items.Count <= 0)
+            {
+                MessageBox.Show("Keine offenen Positionen", "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                this.Close();
+                return;
             }
             clbnotpayed.SelectedIndex = 0;
         }
 
+
         private async void clbnotpayed_ItemCheck(object sender, ItemCheckEventArgs e)
         {
             ApiClient apiClient = new ApiClient();
-            
-                string apiUrl = "https://localhost:1337/articles/id/" + clbnotpayed.SelectedItem.ToString().Split('-')[0];
-                Artikel artikel = await apiClient.GetDataFromApiGeneric<Artikel>(apiUrl);
-                Console.WriteLine("");
-                if (artikel != null)
-                {
-                    if (e.CurrentValue == CheckState.Checked)
-                    {
-                        inttopayinCent -= artikel.Preis;
-                        if (inttopayinCent < 0) inttopayinCent = 0;
-                        MessageBox.Show("Preis: " + artikel.Preis);
-                        rtbcost.Text = Math.Round((double)inttopayinCent / 100, 2).ToString();
-                    }
-                    else
-                    {
-                        inttopayinCent += artikel.Preis;
-                        MessageBox.Show("Preis: " + artikel.Preis);
-                        rtbcost.Text = Math.Round((double)inttopayinCent / 100, 2).ToString();
-                    }
+            string apiUrl = "https://localhost:1337/articles/id/" + clbnotpayed.SelectedItem.ToString().Split('-')[1];
+            Artikel artikel = await apiClient.GetDataFromApiGeneric<Artikel>(apiUrl);
 
+            if (artikel != null)
+            {
+                if (e.CurrentValue == CheckState.Checked)
+                {
+                    inttopayinCent -= artikel.Preis;
+                    if (inttopayinCent < 0) inttopayinCent = 0;
+                    MessageBox.Show("Preis: " + artikel.Preis);
+                    rtbcost.Text = Math.Round((double)inttopayinCent / 100, 2).ToString();
                 }
-            
+                else
+                {
+                    inttopayinCent += artikel.Preis;
+                    MessageBox.Show("Preis: " + artikel.Preis);
+                    rtbcost.Text = Math.Round((double)inttopayinCent / 100, 2).ToString();
+                }
+            }
         }
 
 
         private void cbxpayrest_CheckedChanged(object sender, EventArgs e)
         {
             int count = 0;
-            ;
+
             if (cbxpayrest.Checked)
             {
                 for (int i = 0; i < clbnotpayed.Items.Count; i++)
@@ -170,13 +168,9 @@ namespace RestaurantClient
                     {
                         clbnotpayed.SetSelected(i, true);
                         clbnotpayed.SetItemChecked(i, true);
-                       
-                        
                     }
                     count++;
-
                 }
-
             }
             else
             {
@@ -187,13 +181,11 @@ namespace RestaurantClient
                         //TODOO
                         clbnotpayed.SetSelected(i, true);
                         clbnotpayed.SetItemChecked(i, false);
-                       
                     }
-
                 }
             }
-            
         }
+
 
         private void btnprint_Click(object sender, EventArgs e)
         {
@@ -231,18 +223,54 @@ namespace RestaurantClient
             }
         }
 
-        private void btnpay_Click(object sender, EventArgs e)
+
+        private async void btnpay_Click(object sender, EventArgs e)
         {
-            
             ArrayList list = new ArrayList();
-            foreach (object item in clbnotpayed.CheckedItems)
+            var trinkgeld = (int)(100 * Convert.ToDouble(rtbTips.Text));
+            List<int> orderpositions = new List<int>();
+            // get checked Checkboxes
+            foreach (var item in clbnotpayed.CheckedItems)
             {
                 list.Add(item.ToString());
             }
+            // get list of orderposition ids of items from checked checkboxes
+            foreach (var item in list)
+            {
+                orderpositions.Add(Convert.ToInt32(item.ToString().Split('-')[0]));
+            }
+            //// parse list back to list of type: orderposition
+            //foreach(var orderposition in orderpositions)
+            //{
 
-            string dummy = "";
-            foreach (string item in list) { dummy += item + "\n"; }
-            MessageBox.Show(dummy);
+            //}
+            
+            List<Bestellposition> orderpos = new List<Bestellposition>();
+            // make dummy list of orderposition objects, since we only need the id to close them
+            foreach (var pos in orderpositions)
+            {
+                orderpos.Add(
+                    new Bestellposition()
+                    {
+                        ID_Bestellposition = pos
+                    }
+                );
+            }
+
+            ApiClient apiClient = new ApiClient();
+            string apiUrl;
+            // set list to paid
+            //foreach (var pos in orderpos)
+            //{
+                apiUrl = $"https://localhost:1337/orders/pay/{trinkgeld}";
+                //Artikel artikel = await apiClient.GetDataFromApiGeneric<Artikel>(apiUrl);
+                var response = await apiClient.PostDataToApiGeneric<List<Bestellposition>>(apiUrl, orderpos);
+            Console.WriteLine();
+            this.Close();
+                // orders/pay/{trinkgeld}
+                // body: list<bestellposition>
+                // var response = await apiClient.PostDataToApiGeneric<Bestellung>(apiUrl, newOrder);
+            //}
         }
     }
 }
