@@ -52,18 +52,12 @@ namespace RestaurantClient
             this.Close();
         }
 
-        private void addOrder_Load(object sender, EventArgs e)
-        {
-
-        }
-
         private async void btnGetraenke_Click(object sender, EventArgs e)
         {
             ltbArticle.Items.Clear();
             ApiClient apiClient = new ApiClient();
             string apiUrl = "https://localhost:1337/articles/drinks";
             List<Artikel> artikelliste = await apiClient.GetDataFromApiGeneric<List<Artikel>>(apiUrl);
-            Console.WriteLine("");
             foreach (var article in artikelliste)
             {
                 ltbArticle.Items.Add(article.ID_Artikel + " - " + article.Name);
@@ -76,7 +70,6 @@ namespace RestaurantClient
             ApiClient apiClient = new ApiClient();
             string apiUrl = "https://localhost:1337/articles/food";
             List<Artikel> artikelliste = await apiClient.GetDataFromApiGeneric<List<Artikel>>(apiUrl);
-            Console.WriteLine("");
             foreach (var article in artikelliste)
             {
                 ltbArticle.Items.Add(article.ID_Artikel + " - " + article.Name);
@@ -89,7 +82,6 @@ namespace RestaurantClient
             ApiClient apiClient = new ApiClient();
             string apiUrl = "https://localhost:1337/articles/dessert";
             List<Artikel> artikelliste = await apiClient.GetDataFromApiGeneric<List<Artikel>>(apiUrl);
-            Console.WriteLine("");
             foreach (var article in artikelliste)
             {
                 ltbArticle.Items.Add(article.ID_Artikel + " - " + article.Name);
@@ -106,7 +98,7 @@ namespace RestaurantClient
                 Bestellung newOrder = new Bestellung
                 {
                     Datum = DateTime.Now,
-                    ID_Tisch = intselectedTable, // Beispielwert
+                    ID_Tisch = intselectedTable,
                     Positionen = new List<Bestellposition>()
                 };
 
@@ -120,7 +112,7 @@ namespace RestaurantClient
                     // Erstellen einer neuen Bestellposition und Hinzufügen zur Liste in newOrder
                     Bestellposition position = new Bestellposition
                     {
-                        ID_Artikel = Int32.Parse(parts[0]), // Beispielwert
+                        ID_Artikel = Int32.Parse(parts[0]),
                         Extras = extradump,
                         Geliefert = 0
                     };
@@ -138,7 +130,6 @@ namespace RestaurantClient
                     MessageBox.Show($"Fehler beim Senden der Bestellung. HTTP-Statuscode: {response.StatusCode}");
                 }
                 ltbPlanned.Items.Clear();
-                Console.WriteLine("");
             }
             else
             {
@@ -166,24 +157,18 @@ namespace RestaurantClient
         {
             using (var extraornon = new extrasornon(ltbPlanned.SelectedItem.ToString()))
             {
-                var dummy = ltbPlanned.SelectedItem as string; // Annahme, dass die ListBox-Elemente Strings sind
+                var dummy = ltbPlanned.SelectedItem as string;
 
-                // Zeigen Sie das Einstellungsformular modal an und warten Sie auf Benutzereingabe
                 if (extraornon.ShowDialog() == DialogResult.OK)
                 {
                     if (extraornon.ReturnValue1 != String.Empty)
                     {
-                        // Fügen Sie den übergebenen Text zum ausgewählten Element hinzu
                         dummy += " - " + extraornon.ReturnValue1.ToString();
-
-                        // Aktualisieren Sie das ausgewählte Element in der ListBox
                         ltbPlanned.Items[ltbPlanned.SelectedIndex] = dummy;
                     }
                 }
             }
         }
-
-     
 
         private void btnreset_Click(object sender, EventArgs e)
         {

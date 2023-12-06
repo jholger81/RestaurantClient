@@ -50,7 +50,7 @@
             this.ltbArticle.FormattingEnabled = true;
             this.ltbArticle.ItemHeight = 25;
             this.ltbArticle.Location = new System.Drawing.Point(22, 275);
-            this.ltbArticle.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.ltbArticle.Margin = new System.Windows.Forms.Padding(6);
             this.ltbArticle.Name = "ltbArticle";
             this.ltbArticle.Size = new System.Drawing.Size(562, 579);
             this.ltbArticle.TabIndex = 0;
@@ -59,7 +59,7 @@
             // btnGetraenke
             // 
             this.btnGetraenke.Location = new System.Drawing.Point(22, 163);
-            this.btnGetraenke.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.btnGetraenke.Margin = new System.Windows.Forms.Padding(6);
             this.btnGetraenke.Name = "btnGetraenke";
             this.btnGetraenke.Size = new System.Drawing.Size(290, 104);
             this.btnGetraenke.TabIndex = 1;
@@ -70,7 +70,7 @@
             // btnSpeisen
             // 
             this.btnSpeisen.Location = new System.Drawing.Point(358, 163);
-            this.btnSpeisen.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.btnSpeisen.Margin = new System.Windows.Forms.Padding(6);
             this.btnSpeisen.Name = "btnSpeisen";
             this.btnSpeisen.Size = new System.Drawing.Size(290, 104);
             this.btnSpeisen.TabIndex = 2;
@@ -82,7 +82,7 @@
             // 
             this.btnreset.BackColor = System.Drawing.Color.IndianRed;
             this.btnreset.Location = new System.Drawing.Point(930, 773);
-            this.btnreset.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.btnreset.Margin = new System.Windows.Forms.Padding(6);
             this.btnreset.Name = "btnreset";
             this.btnreset.Size = new System.Drawing.Size(264, 125);
             this.btnreset.TabIndex = 6;
@@ -94,7 +94,7 @@
             // 
             this.btnremovearticle.BackColor = System.Drawing.Color.Khaki;
             this.btnremovearticle.Location = new System.Drawing.Point(628, 773);
-            this.btnremovearticle.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.btnremovearticle.Margin = new System.Windows.Forms.Padding(6);
             this.btnremovearticle.Name = "btnremovearticle";
             this.btnremovearticle.Size = new System.Drawing.Size(264, 125);
             this.btnremovearticle.TabIndex = 7;
@@ -106,7 +106,7 @@
             // 
             this.btnsavenext.BackColor = System.Drawing.Color.DarkSeaGreen;
             this.btnsavenext.Location = new System.Drawing.Point(422, 987);
-            this.btnsavenext.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.btnsavenext.Margin = new System.Windows.Forms.Padding(6);
             this.btnsavenext.Name = "btnsavenext";
             this.btnsavenext.Size = new System.Drawing.Size(350, 173);
             this.btnsavenext.TabIndex = 8;
@@ -118,7 +118,7 @@
             // 
             this.pictureBox1.Image = global::RestaurantClient.Properties.Resources.Gasthoficon;
             this.pictureBox1.Location = new System.Drawing.Point(998, 35);
-            this.pictureBox1.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.pictureBox1.Margin = new System.Windows.Forms.Padding(6);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(196, 229);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -129,7 +129,7 @@
             // 
             this.btnback.BackColor = System.Drawing.Color.IndianRed;
             this.btnback.Location = new System.Drawing.Point(22, 23);
-            this.btnback.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.btnback.Margin = new System.Windows.Forms.Padding(6);
             this.btnback.Name = "btnback";
             this.btnback.Size = new System.Drawing.Size(474, 117);
             this.btnback.TabIndex = 14;
@@ -150,7 +150,7 @@
             // btnDessert
             // 
             this.btnDessert.Location = new System.Drawing.Point(694, 163);
-            this.btnDessert.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.btnDessert.Margin = new System.Windows.Forms.Padding(6);
             this.btnDessert.Name = "btnDessert";
             this.btnDessert.Size = new System.Drawing.Size(290, 104);
             this.btnDessert.TabIndex = 16;
@@ -163,7 +163,7 @@
             this.ltbPlanned.FormattingEnabled = true;
             this.ltbPlanned.ItemHeight = 25;
             this.ltbPlanned.Location = new System.Drawing.Point(628, 279);
-            this.ltbPlanned.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.ltbPlanned.Margin = new System.Windows.Forms.Padding(6);
             this.ltbPlanned.Name = "ltbPlanned";
             this.ltbPlanned.Size = new System.Drawing.Size(562, 479);
             this.ltbPlanned.TabIndex = 17;
@@ -197,10 +197,9 @@
             this.Controls.Add(this.btnGetraenke);
             this.Controls.Add(this.ltbArticle);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.Margin = new System.Windows.Forms.Padding(6);
             this.Name = "addOrder";
             this.Text = "Artikel hinzufügen";
-            this.Load += new System.EventHandler(this.addOrder_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

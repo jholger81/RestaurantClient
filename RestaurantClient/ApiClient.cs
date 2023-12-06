@@ -38,7 +38,7 @@ public class ApiClient
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"An error occurred: {ex.Message}");
+            MessageBox.Show($"An error occurred: {ex.Message}", "API Call failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
             return null;
         }
     }
@@ -52,7 +52,10 @@ public class ApiClient
             if (response.IsSuccessStatusCode)
             {
                 string data = await response.Content.ReadAsStringAsync();
-                return JsonSerializer.Deserialize<T>(data);
+                if (!String.IsNullOrEmpty(data))
+                    return JsonSerializer.Deserialize<T>(data);
+                else
+                    return default(T);
             }
             else
             {
@@ -62,7 +65,7 @@ public class ApiClient
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"An error occurred: {ex.Message}");
+            MessageBox.Show($"An error occurred: {ex.Message}", "API Call failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
             return default(T);
         }
     }
@@ -91,7 +94,10 @@ public class ApiClient
             if (response.IsSuccessStatusCode)
             {
                 string responseData = await response.Content.ReadAsStringAsync();
-                return JsonSerializer.Deserialize<T>(responseData);
+                if (!String.IsNullOrEmpty(responseData))
+                    return JsonSerializer.Deserialize<T>(responseData);
+                else
+                    return default(T);
             }
             else
             {
@@ -101,7 +107,7 @@ public class ApiClient
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"An error occurred: {ex.Message}");
+            MessageBox.Show($"An error occurred: {ex.Message}", "API Call failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
             return default(T);
         }
     }
@@ -146,18 +152,14 @@ public class ApiClient
             var content = new StringContent(jsonString, Encoding.UTF8, "application/json");
 
             response = await httpClient.PutAsync(apiUrl, content);
-            if (response.IsSuccessStatusCode)
-            {
-                MessageBox.Show($"Success, HTTP-Statuscode: {response.StatusCode}");
-            }
-            else
+            if (!response.IsSuccessStatusCode)
             {
                 MessageBox.Show($"Not successful, HTTP-Statuscode: {response.StatusCode}");
             }
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"An error occurred: {ex.Message}");
+            MessageBox.Show($"An error occurred: {ex.Message}", "API Call failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
         return response;
     }
@@ -183,18 +185,14 @@ public class ApiClient
             response = await httpClient.SendAsync(request);
 
             //response = await httpClient.PutAsync(apiUrl, content);
-            if (response.IsSuccessStatusCode)
-            {
-                MessageBox.Show($"Success, HTTP-Statuscode: {response.StatusCode}");
-            }
-            else
+            if (!response.IsSuccessStatusCode)
             {
                 MessageBox.Show($"Not successful, HTTP-Statuscode: {response.StatusCode}");
             }
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"An error occurred: {ex.Message}");
+            MessageBox.Show($"An error occurred: {ex.Message}", "API Call failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
         return response;
     }
