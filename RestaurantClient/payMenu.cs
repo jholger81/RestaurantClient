@@ -40,13 +40,13 @@ namespace RestaurantClient
 
         private void rtbmoneygive_TextChanged(object sender, EventArgs e)
         {
-
+            // TODO kann weg?
         }
 
 
         private void rtbmoneygive_KeyPress(object sender, KeyPressEventArgs e)
         {
-
+            // TODO kann weg?
         }
 
 
@@ -57,13 +57,14 @@ namespace RestaurantClient
             {
                 e.Handled = false; // Erlaube leere Eingabe
             }
-            else
+
+            if (!(char.IsDigit((char)e.KeyCode) || e.KeyCode == Keys.Oemcomma || e.KeyCode == Keys.Decimal))
             {
-                if (!(char.IsDigit((char)e.KeyCode) || e.KeyCode == Keys.Oemcomma || e.KeyCode == Keys.Decimal))
-                {
-                    e.SuppressKeyPress = true;
-                }
+                e.SuppressKeyPress = true;
+                var filteredChars = rtbmoneygive.Text.Where(c => char.IsDigit(c) || c == ',');
+                rtbmoneygive.Text = new string(filteredChars.ToArray());
             }
+
 
             if (rtbmoneygive.Text.Contains(","))
             {
@@ -84,8 +85,11 @@ namespace RestaurantClient
                 if (double.TryParse(rtbmoneygive.Text, out moneyGiven) &&
                     double.TryParse(rtbcost.Text, out cost))
                 {
-                    double tipsInEuro = moneyGiven - cost;
-                    rtbTips.Text = Convert.ToString(tipsInEuro);
+                    int costInCent = Convert.ToInt32(cost * 100);
+                    int moneyGivenInCent = Convert.ToInt32(moneyGiven * 100);
+                    int tipsInCent = moneyGivenInCent - costInCent;
+                    double tipsInEuro = (double)tipsInCent / 100;
+                    rtbTips.Text = string.Format("{0:N2}", tipsInEuro);
                 }
             }
         }
@@ -110,7 +114,6 @@ namespace RestaurantClient
 
             apiUrl = "https://localhost:1337/orders/" + intselectedTable.ToString() + "/closed";
             bestellungen = await apiClient.GetDataFromApiGeneric<List<Bestellung>>(apiUrl);
-            Console.WriteLine("");
             if (bestellungen != null)
             {
                 foreach (var bestellung in bestellungen)
@@ -143,13 +146,11 @@ namespace RestaurantClient
                 {
                     inttopayinCent -= artikel.Preis;
                     if (inttopayinCent < 0) inttopayinCent = 0;
-                    // MessageBox.Show("Preis: " + artikel.Preis); // TODO : kann weg
                     rtbcost.Text = Math.Round((double)inttopayinCent / 100, 2).ToString();
                 }
                 else
                 {
                     inttopayinCent += artikel.Preis;
-                    // MessageBox.Show("Preis: " + artikel.Preis); // TODO : kann weg
                     rtbcost.Text = Math.Round((double)inttopayinCent / 100, 2).ToString();
                 }
             }
@@ -178,7 +179,6 @@ namespace RestaurantClient
                 {
                     if (clbnotpayed.GetItemChecked(i))
                     {
-                        //TODOO
                         clbnotpayed.SetSelected(i, true);
                         clbnotpayed.SetItemChecked(i, false);
                     }

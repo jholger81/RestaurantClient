@@ -27,7 +27,6 @@ namespace RestaurantClient
 
                 rtbRemove.Text = removeText;
                 rtbExtras.Text = extraText;
-                //dummylable.Text = parts.Count().ToString();
             }
         }
         private void btnsave_Click(object sender, EventArgs e)
@@ -45,7 +44,6 @@ namespace RestaurantClient
                     temp += " - ";
                 if (rtbExtras.Text != string.Empty)
                     temp += "Extra: " + rtbExtras.Text;
-                //this.ReturnValue1 = "Kein: " + rtbRemove.Text + " - Extra: " + rtbExtras.Text;
                 this.ReturnValue1 = temp;
             }
             this.DialogResult = DialogResult.OK;

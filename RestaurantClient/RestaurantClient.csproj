@@ -198,6 +198,7 @@
     </Compile>
     <EmbeddedResource Include="addOrder.resx">
       <DependentUpon>addOrder.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="extrasornon.resx">
       <DependentUpon>extrasornon.cs</DependentUpon>

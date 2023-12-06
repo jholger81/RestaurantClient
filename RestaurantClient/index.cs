@@ -49,7 +49,7 @@ namespace RestaurantClient
 
         private void UpdateTableViewTimer_Tick(object sender, EventArgs args)
         {
-            index_Load2();
+            RefreshTableOverview();
         }
 
 
@@ -58,8 +58,7 @@ namespace RestaurantClient
             if (intselectedTable != 0)
             {
                 Form addOrder = new addOrder(intselectedTable);
-
-                // Show the settings form
+                addOrder.FormClosed += Refresh;
                 addOrder.Show();
             }
         }
@@ -71,15 +70,13 @@ namespace RestaurantClient
             {
                 Form payMenu = new payMenu(intselectedTable);
                 payMenu.FormClosed += Refresh;
-
-                // Show the settings form
                 payMenu.Show();
             }
         }
 
         private void Refresh(object sender, FormClosedEventArgs e)
         {
-            index_Load2();
+            RefreshTableOverview();
         }
 
         private async void tischwechselnToolStripMenuItem_Click(object sender, EventArgs e)
@@ -141,7 +138,6 @@ namespace RestaurantClient
             ApiClient apiClient = new ApiClient();
             string apiUrl = "https://localhost:1337/articles/drinks";
             List<Artikel> Artikel = await apiClient.GetDataFromApiGeneric<List<Artikel>>(apiUrl);
-            Console.WriteLine("");
             MessageBox.Show(Artikel.First().Name);
         }
         
@@ -172,11 +168,11 @@ namespace RestaurantClient
 
         private async void index_Load(object sender, EventArgs e)
         {
-            index_Load2();
+            RefreshTableOverview();
         }
 
 
-        private async void index_Load2()
+        private async void RefreshTableOverview()
         {
             ApiClient apiClient = new ApiClient();
             string apiUrl = "https://localhost:1337/tables";
@@ -231,8 +227,6 @@ namespace RestaurantClient
         private void reportToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Form report = new report();
-
-            // Show the settings form
             report.Show();
         }
 
@@ -328,7 +322,6 @@ namespace RestaurantClient
             ApiClient apiClient = new ApiClient();
             string apiUrl = "https://localhost:1337/tables";
             List<Tisch> tischliste = await apiClient.GetDataFromApiGeneric<List<Tisch>>(apiUrl);
-            Console.WriteLine("");
             foreach (var tisch in tischliste)
             {
                 if (tisch.ID_Kellner != kellnerID)
@@ -343,7 +336,7 @@ namespace RestaurantClient
                 }
             }
 
-            index_Load2();
+            RefreshTableOverview();
         }
 
 
