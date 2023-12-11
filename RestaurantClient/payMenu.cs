@@ -122,6 +122,7 @@ namespace RestaurantClient
                     {
                         lbpayed.Items.Add(pos.ID_Artikel + " - " + pos.Artikel.Name);
                     }
+                    lbpayed.Items.Add("--------------------");
                 }
             }
             if (clbnotpayed.Items.Count <= 0)
@@ -201,8 +202,8 @@ namespace RestaurantClient
                 stringToPrint += $"{item.ToString()}\r\n";
             }
 
-            stringToPrint += $"\r\nZu begleichender Betrag: {inttopayinCent}";
-            stringToPrint += $"\r\nBezahlte Betrag:{rtbmoneygive.Text}";
+            stringToPrint += $"\r\nZu begleichender Betrag: {inttopayinCent/100}€";
+            stringToPrint += $"\r\nBezahlter Betrag:{rtbmoneygive.Text}€";
 
             docToPrint.PrintPage += delegate (object sender1, PrintPageEventArgs e1)
             {
@@ -228,6 +229,22 @@ namespace RestaurantClient
         {
             ArrayList list = new ArrayList();
             var trinkgeld = (int)(100 * Convert.ToDouble(rtbTips.Text));
+            if (trinkgeld < 0)
+            {
+                MessageBox.Show($"Fehler beim Senden der Rechnung: Kein negativer Betrag möglich.", "Negativer Betrag", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            if (String.IsNullOrWhiteSpace(rtbmoneygive.Text))
+            {
+                MessageBox.Show($"Fehler beim Senden der Rechnung: Kein Betrag eingegeben.", "Fehlender Betrag", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            if (Convert.ToInt32(rtbcost.Text) == 0)
+            {
+                MessageBox.Show($"Fehler beim Senden der Rechnung: Kein Artikel ausgewählt.", "Keine Artikel ausgewählt", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
             List<int> orderpositions = new List<int>();
             // get checked Checkboxes
             foreach (var item in clbnotpayed.CheckedItems)
