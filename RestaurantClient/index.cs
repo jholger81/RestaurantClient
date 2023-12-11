@@ -91,7 +91,6 @@ namespace RestaurantClient
             if (dummy.Length >0)
             {
                 int toTableId = Int32.Parse(dummy);
-                MessageBox.Show(toTableId.ToString());
                 Tisch toTable = new Tisch() { ID_Tisch = toTableId };
                 ctn.BackColor = Color.DarkSeaGreen;
                 ctn = (Button)this.Controls.Find("btnTisch" + Convert.ToString(toTableId), true)[0];
@@ -342,10 +341,12 @@ namespace RestaurantClient
 
         private async void kellnerZuweisenToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            if (intselectedTable == 0)
+                return;
            ApiClient apiClient = new ApiClient();
             string apiUrl = "https://localhost:1337/waiter/switch/" + kellnerID + "/" + intselectedTable;
 
-            await apiClient.GetDataFromApiGeneric<string>(apiUrl);
+            await apiClient.GetDataFromApiGeneric<Tisch>(apiUrl);
         }
 
 
